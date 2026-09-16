@@ -102,9 +102,6 @@
   .filtros{display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:1.25rem;}
   .filtro{padding:.5rem .9rem; border:1px solid var(--gris-300); background:var(--blanco); font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--gris-700); cursor:pointer; transition:all .15s; touch-action:manipulation;}
   .filtro.active{background:var(--negro); color:var(--blanco); border-color:var(--negro);}
-  .marca-detalle{padding:1.25rem; background:var(--gris-50); margin:.75rem 0;}
-  .marca-detalle h4{font-size:12px; text-transform:uppercase; letter-spacing:.15em; color:var(--gris-900); font-weight:500; margin-bottom:.6rem;}
-  .marca-detalle p{font-size:13px; color:var(--gris-700); line-height:1.7;}
   .avance-form{display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:1.25rem;}
   .chart{display:flex; align-items:flex-end; gap:.3rem; height:90px; border-bottom:1px solid var(--gris-300); margin:1.25rem 0 1.75rem;}
   .chart .bar{flex:1; min-width:6px; background:var(--negro); min-height:2px; opacity:.85;}
@@ -123,31 +120,14 @@
   .oculto{display:none !important;}
   .badge{display:inline-block; padding:.15rem .5rem; font-size:9px; text-transform:uppercase; letter-spacing:.1em; background:var(--acento-claro); color:var(--acento); border-radius:2px; margin-left:.35rem; vertical-align:middle;}
   .badge-api{background:var(--info-claro); color:var(--info);}
-  .badge-local{background:var(--gris-100); color:var(--gris-700);}
-  .search-box{display:flex; gap:.5rem; margin-bottom:1rem;}
-  .search-box input{flex:1; padding:.7rem 0; border:none; border-bottom:1px solid var(--gris-300); background:transparent; color:var(--negro);}
-  .search-box input:focus{outline:none; border-bottom-color:var(--negro);}
-  .search-box button{padding:.7rem 1.2rem; background:var(--negro); color:var(--blanco); border:none; cursor:pointer; font-size:11px; text-transform:uppercase; letter-spacing:.1em;}
-  .resultados-api{font-size:13px; color:var(--gris-700); line-height:1.7; max-height:320px; overflow-y:auto; padding:.5rem 0;}
-  .resultados-api .item{padding:.75rem 0; border-bottom:1px solid var(--gris-100);}
-  .resultados-api .item:last-child{border-bottom:none;}
-  .resultados-api .item .nombre{font-weight:600; color:var(--negro);}
-  .resultados-api .item .detalle{font-size:12px; color:var(--gris-500); margin-top:.2rem;}
   .spinner{display:inline-block; width:14px; height:14px; border:2px solid var(--gris-300); border-top-color:var(--negro); border-radius:50%; animation:spin .6s linear infinite; vertical-align:middle; margin-right:.4rem;}
   @keyframes spin{to{transform:rotate(360deg);}}
-  .tooltip{position:relative; display:inline-block; border-bottom:1px dotted var(--gris-500); cursor:help;}
-  .tooltip .tooltiptext{visibility:hidden; width:220px; background:var(--negro); color:var(--blanco); text-align:left; padding:.6rem .8rem; font-size:11px; line-height:1.5; position:absolute; z-index:10; bottom:125%; left:50%; margin-left:-110px; opacity:0; transition:opacity .2s;}
-  .tooltip:hover .tooltiptext{visibility:visible; opacity:1;}
-
-  /* Zona de subida de fotos */
   .upload-zone{position:relative; border:2px dashed var(--gris-300); padding:2rem 1rem; text-align:center; cursor:pointer; transition:all .2s; background:var(--gris-50); margin-bottom:1.25rem; border-radius:4px;}
   .upload-zone:hover{border-color:var(--negro); background:var(--blanco);}
   .upload-zone input[type="file"]{position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%;}
   .upload-zone .upload-placeholder p{font-size:13px; color:var(--gris-500);}
   .upload-zone .upload-placeholder p:first-child{font-size:15px; color:var(--gris-700); margin-bottom:.35rem;}
   .upload-zone img{max-width:100%; max-height:300px; object-fit:contain; border-radius:4px;}
-
-  /* Resultado de identificación */
   .resultado-alga{padding:1.25rem; background:var(--gris-50); border-left:3px solid var(--alerta); margin:1rem 0;}
   .resultado-alga h4{font-size:14px; font-weight:600; color:var(--negro); margin-bottom:.5rem;}
   .resultado-alga .confianza{font-size:11px; color:var(--gris-500); margin-bottom:.75rem;}
@@ -157,7 +137,7 @@
   .resultado-alga .pasos li:last-child{border-bottom:none;}
   .resultado-alga .pasos li::before{content:"→"; position:absolute; left:0; color:var(--acento); font-weight:bold;}
   .resultado-alga .pasos li strong{color:var(--negro);}
-
+  .aviso-seguridad{background:var(--alerta-claro); border-left:3px solid var(--alerta); padding:.9rem 1rem; font-size:12px; color:var(--gris-700); line-height:1.6; margin-bottom:1rem;}
   @media(max-width:500px){
     .app{padding:1rem 1rem 4rem;}
     .header{flex-direction:column; align-items:flex-start;}
@@ -174,7 +154,7 @@
 
   <header class="header">
     <div><h1>Aqua Planner</h1><p class="sub">Asistente para acuarios plantados</p></div>
-    <div class="aviso">Diagnóstico por IA<br><span class="badge badge-api">Nyckel</span></div>
+    <div class="aviso">Diagnóstico<br>por IA · Nyckel</div>
   </header>
 
   <div class="progress">
@@ -512,18 +492,111 @@
 
 <script>
 // ============================================================
-// CONFIGURACIÓN DE NYCKEL
+// CREDENCIALES NYCKEL
 // ============================================================
-// 1. Regístrate gratis en https://www.nyckel.com
-// 2. Clona el clasificador de algas: https://www.nyckel.com/pretrained-classifiers/algae-species/clone
-// 3. Copia tu Client ID y Client Secret desde Access Management
-// 4. Pégalos aquí abajo:
-var NYCKEL_CLIENT_ID = '';      // ← Tu Client ID
-var NYCKEL_CLIENT_SECRET = '';  // ← Tu Client Secret
-var NYCKEL_FUNCTION_ID = '';    // ← ID de tu función clonada
+// ⚠️ ADVERTENCIA: estas credenciales quedan visibles en el HTML.
+//    Cualquiera que abra el código fuente puede verlas y usarlas.
+//    Para producción, usa un proxy o rota las credenciales.
+var NYCKEL_CLIENT_ID = 'mfxhnsczibgq7jj6wded7hz6s9k4qfsv';
+var NYCKEL_CLIENT_SECRET = 't9xg6845dwx6o7ybfv94dco4fqpd8792jkwxl20o89zakshkb8pu6nhhlt1fjrx6';
+var NYCKEL_FUNCTION_ID = '';  // ⚠️ PENDIENTE: pega aquí el ID de tu clasificador clonado
 
 // ============================================================
-// BASE DE DATOS LOCAL DE ALGAS (respaldo + tratamientos)
+// CATÁLOGO DE MARCAS DEL HOBBY
+// ============================================================
+var CATALOGO = {
+  iluminacion: [
+    { marca:'Ultum Nature Systems', modelos:'Titan 1, Solar RGB, Titan 1 Mini', nota:'200 bulbos Epistar RGB, 9,000–12,000 K. Aluminio aeronáutico, altura de colgado recomendada: 30 cm.' },
+    { marca:'Chihiros', modelos:'WRGB II, WRGB II Pro, Vivid II, A Series', nota:'Control Bluetooth, ajuste por canales RGB, simulación amanecer/atardecer.' },
+    { marca:'Twinstar', modelos:'S-Line, E-Line, EA Series', nota:'Advanced Spectrum V3.0 con 6 LEDs de color individual. PPFD 300–370 µmol/m²/s a 20 cm.' },
+    { marca:'ADA', modelos:'Aquasky, Solar RGB, Solar I, Mist', nota:'Referente japonés del aquascaping. Espectro optimizado para plantas exigentes.' },
+    { marca:'ONF', modelos:'Flat One, Flat Nano', nota:'Diseño minimalista, muy popular en nano acuarios.' },
+    { marca:'Fluval', modelos:'Plant 3.0, Plant 2.0', nota:'Buena relación calidad-precio, app FluvalSmart.' },
+    { marca:'Finnex', modelos:'Planted+ 24/7, FugeRay', nota:'Programable 24/7, muy usado en USA.' },
+    { marca:'Nicrew', modelos:'ClassicLED, Planted', nota:'Económico, buena opción de entrada.' }
+  ],
+  filtracion: [
+    { marca:'Ultum Nature Systems', modelos:'Delta 30 V2 (≤60 L), Delta 60 V2 (≤100 L), Delta 90 V2 (≤150 L), Delta 120 V2 (≤350 L), Blitz 6 OZ, Blitz 32 OZ', nota:'Canister de diseño elegante con Aquario Neo Flow Lily Pipes y Neo Media Pure. Sistema de cesta modular. Blitz: filtro de acero inoxidable premium para nano acuarios.' },
+    { marca:'Eheim', modelos:'Classic 2213, Pro 4+ 250, eXperience 250', nota:'Fiabilidad alemana, referencia del hobby desde décadas.' },
+    { marca:'Fluval', modelos:'207, 307, 407, FX4, FX6', nota:'Canister popular, fácil mantenimiento, buena circulación.' },
+    { marca:'OASE', modelos:'BioMaster 250, BioMaster 350, FiltoSmart', nota:'Pre-filtro integrado extraíble, muy práctico.' },
+    { marca:'Sunsun', modelos:'HW-302, HW-303B, HW-304B', nota:'Económico, buena capacidad para el precio.' },
+    { marca:'AquaClear', modelos:'30, 50, 70', nota:'HOB de referencia, filtro de esponja reutilizable.' }
+  ],
+  co2: [
+    { marca:'Ultum Nature Systems', modelos:'Pro Dual Stage Regulator, Pro Mini Regulator, Pro Inline Diffuser, Micro CO2 Kit', nota:'Reguladores profesionales de doble etapa que evitan descargas al final del tanque. Difusores inline para estética limpia.' },
+    { marca:'CO2Art', modelos:'PRO-SE, PRO-Elite', nota:'Reguladores premium, solenoide de alta calidad.' },
+    { marca:'Fzone', modelos:'Generator 2.5 L, Generator 5 L', nota:'Botella SUS304 con regulador integrado y contador de burbujas.' },
+    { marca:'Aquario Neo', modelos:'Neo CO2 Kit', nota:'Compacto, ideal para nano acuarios.' },
+    { marca:'Green Leaf Aquariums', modelos:'GRO-1, PRO-1', nota:'Reguladores de alta gama, precisión quirúrgica.' },
+    { marca:'Milwaukee', modelos:'MA957', nota:'Regulador económico fiable, opción de entrada.' },
+    { marca:'ADA', modelos:'CO2 System 74-YA', nota:'Sistema japonés de referencia, acabado impecable.' }
+  ],
+  sustratos: [
+    { marca:'Ultum Nature Systems', modelos:'Controsoil (Negro/Marrón, Normal/Fino/Extra Fino), Controsand (Mojave, Sequoia, Kona, Morocco, Monterey, Maui, Bora)', nota:'Controsoil: suelo japonés de tierra natural y ceniza volcánica. Estabiliza pH ~6.8, bajo amoniaco, ideal para Caridina. Controsand: arenas y gravas decorativas en múltiples tonos.' },
+    { marca:'ADA', modelos:'Amazonia, Amazonia Light, Aqua Soil', nota:'El estándar dorado. Rico en nutrientes, ideal para tapizantes.' },
+    { marca:'Tropica', modelos:'Aquarium Soil, Plant Growth Substrate', nota:'Buena alternativa a ADA, menos amoniaco inicial.' },
+    { marca:'Seachem', modelos:'Flourite, Flourite Black Sand', nota:'Inerte, no se deshace. Requiere root tabs.' },
+    { marca:'Dennerle', modelos:'Scapers Soil, DeponitMix', nota:'Gama alemana completa, con sistema por capas.' },
+    { marca:'CaribSea', modelos:'Eco-Complete', nota:'Sustrato nutritivo económico, listo para usar.' }
+  ],
+  fertilizantes: [
+    { marca:'Ultum Nature Systems', modelos:'Plant Food MIN, Plant Food MAX', nota:'MIN: concentración media para acuarios nuevos. MAX: rico en macros y micros para acuarios establecidos con alta luz.' },
+    { marca:'Seachem', modelos:'Flourish, Flourish Excel, Flourish Iron, Flourish Nitrogen, Flourish Phosphorus, Flourish Potassium, Flourish Trace, Flourish Advance', nota:'Gama completa y accesible. Excel es el carbono líquido más usado.' },
+    { marca:'Aquavitro', modelos:'Mineralize, Propel, Synthesis, Activate, Carbonate, Envy', nota:'Gama premium de Seachem, con fórmulas más concentradas.' },
+    { marca:'2HR Aquarist (APT)', modelos:'APT 1 Zero, APT 3 Complete, APT E/Estimative Index, APT Start, APT Sky', nota:'Fórmulas de Singapur. APT 1 Zero sin N/P para acuarios con peces. APT 3 Complete todo-en-uno. APT E para EI dosing.' },
+    { marca:'ADA', modelos:'Green Brighty Neutral K, Mineral, Iron, Nitrogen', nota:'Gama japonesa de referencia, muy equilibrada.' },
+    { marca:'Tropica', modelos:'Specialised Nutrition, Premium Nutrition, Plant Growth', nota:'Gama danesa, muy usada en acuarios de competición.' },
+    { marca:'NilocG', modelos:'Thrive, Thrive+, ThriveC', nota:'EI dosing (Estimative Index), popular en USA.' },
+    { marca:'Dennerle', modelos:'V30 Complete, S7 Vital, E15 FerActiv', nota:'Sistema alemán completo, con dosificación diaria.' },
+    { marca:'Aquarium Co-Op', modelos:'Easy Green, Easy Iron, Easy Carbon', nota:'Fórmula simplificada, ideal para principiantes.' }
+  ],
+  tests: [
+    { marca:'API', modelos:'Freshwater Master Test Kit, GH & KH Test', nota:'El más usado. Económico y suficiente para la mayoría.' },
+    { marca:'Salifert', modelos:'NO3, PO4, pH, KH', nota:'Alta precisión, escalas finas. Referencia para plantados.' },
+    { marca:'JBL', modelos:'ProAquaTest, ProScan', nota:'Gama alemana, muy completa.' },
+    { marca:'Sera', modelos:'Aqua-Test Box', nota:'Kits completos, buena calidad-precio.' },
+    { marca:'Hanna Instruments', modelos:'HI713 (fosfato), HI764', nota:'Fotómetro digital de laboratorio, máxima precisión.' }
+  ],
+  decloradores: [
+    { marca:'Seachem', modelos:'Prime', nota:'El estándar del hobby. Neutraliza cloro, cloramina y amoniaco.' },
+    { marca:'API', modelos:'Stress Coat+, Tap Water Conditioner', nota:'Económico, funciona bien con cloro pero no cloramina.' },
+    { marca:'Aquavitro', modelos:'Alpha', nota:'Versión premium de Prime.' },
+    { marca:'Brightwell Aquatics', modelos:'Bioscape, Erase-Cl', nota:'Gama marina adaptada a agua dulce.' }
+  ],
+  bacterias: [
+    { marca:'Seachem', modelos:'Stability', nota:'El más usado. Mantiene el ciclado bajo control.' },
+    { marca:'API', modelos:'Quick Start', nota:'Económico, buen arranque.' },
+    { marca:'Microbe-Lift', modelos:'Special Blend, Nite-Out II', nota:'Gama profesional, muy concentrada.' },
+    { marca:'Fritz', modelos:'FritzZyme 7, Turbo Start 700', nota:'Alta concentración, ciclado rápido.' },
+    { marca:'Brightwell Aquatics', modelos:'MicroBacter7, MicroBacter Start XLM', nota:'Gama marina/plantada de alta calidad.' }
+  ],
+  remineralizantes: [
+    { marca:'Salty Shrimp', modelos:'GH+, GH/KH+, Bee Shrimp Mineral', nota:'Especializado en gambas, muy preciso.' },
+    { marca:'Seachem', modelos:'Equilibrium, Alkaline Buffer, Acid Buffer', nota:'Ajuste de GH y KH con precisión.' },
+    { marca:'Aquavitro', modelos:'Mineralize', nota:'Sube GH con calcio y magnesio quelados. Dosis: 7 ml por 56 L sube GH en 2.8 dGH.' },
+    { marca:'Brightwell Aquatics', modelos:'Remineraliz, Alkalin8.3-P', nota:'Precisión marina aplicada a agua dulce.' },
+    { marca:'Dennerle', modelos:'Nano Shrimp Mineral', nota:'Para gambas y acuarios pequeños.' }
+  ],
+  alimentos: [
+    { marca:'Hikari', modelos:'Micro Pellets, Tropical Micro Pellets, Cichlid Gold', nota:'Referente japonés, alta palatabilidad.' },
+    { marca:'New Life Spectrum', modelos:'Thera+A, Cichlid Formula', nota:'Alta palatabilidad, sin rellenos.' },
+    { marca:'Repashy', modelos:'Community Plus, Soilent Green, Super Green', nota:'Gel food, excelente para peces y gambas.' },
+    { marca:'Fluval', modelos:'Bug Bites, Colour Enhancing Pellets', nota:'Alto en proteína de insectos.' },
+    { marca:'NorthFin', modelos:'Community, Cichlid Formula', nota:'Gama premium, ingredientes naturales.' },
+    { marca:'Xtreme Aquatic Foods', modelos:'Nano, Krill Flake', nota:'Popular entre criadores profesionales.' }
+  ],
+  equipamiento: [
+    { marca:'Ultum Nature Systems', modelos:'Titan Heater, Rimless Tank, Terrace Plant Wall, CO2 Cylinder Pro', nota:'Estética premium, muy usado en aquascaping de competición.' },
+    { marca:'Eheim', modelos:'Skim 350, Jager Heater, Stream Pump', nota:'Fiabilidad alemana, décadas de reputación.' },
+    { marca:'Fluval', modelos:'Heater, Circulation Pump', nota:'Calidad accesible.' },
+    { marca:'ADA', modelos:'Super Jet Filter, Beam Stand', nota:'Referente japonés, acabados impecables.' },
+    { marca:'Tropica', modelos:'Plant Tools, Scissors, Pinsettes', nota:'Herramientas de precisión para poda y plantado.' }
+  ]
+};
+
+// ============================================================
+// BASE DE DATOS LOCAL DE ALGAS
 // ============================================================
 var TIPOS_ALGAS = {
   'diatomeas': {
@@ -576,7 +649,7 @@ var TIPOS_ALGAS = {
     pasos: [
       'Estabiliza el CO₂: si es presurizado, revisa el solenoide y la hora de encendido (1 hora antes de la luz).',
       'Aplica peróxido de hidrógeno (H₂O₂ al 3%) directamente sobre el alga con jeringa, 1–2 ml por cada 10 L. Apaga el filtro durante 10 minutos.',
-      'Alternativa: apply carbono líquido (Excel) con jeringa en la zona afectada.',
+      'Alternativa: aplica carbono líquido (Excel) con jeringa en la zona afectada.',
       'Poda las hojas con más del 50% cubierto. No las arranques: se esparce.',
       'Limpia el filtro completo y aumenta la circulación.',
       'Reduce fosfato a 0.5–1.0 ppm.'
@@ -640,7 +713,6 @@ var TIPOS_ALGAS = {
   }
 };
 
-// Mapeo de nombres de Nyckel a nuestros tipos
 var MAPA_NYCKEL = {
   'Cladophora': 'filamentosa',
   'Chlorella': 'green-water',
@@ -723,6 +795,9 @@ function aplicarPresetSustrato(){
 var currentStep = 0;
 var historial = [];
 try { historial = JSON.parse(localStorage.getItem('aquaPlannerHistorial') || '[]'); } catch(e){ historial = []; }
+
+// Cache del token de Nyckel (válido por ~24 horas)
+var nyckelTokenCache = { token: null, expira: 0 };
 
 // ============================================================
 // NAVEGACIÓN
@@ -1212,11 +1287,15 @@ function renderDiagnostico(d){
   html += '<div class="bloque-titulo">Diagnóstico de algas por foto</div>';
   html += '<div class="bloque-desc">Sube una foto clara del alga. La IA la comparará con su base de datos y te dará un diagnóstico con pasos específicos.</div>';
 
+  if (!NYCKEL_FUNCTION_ID){
+    html += '<div class="aviso-seguridad">⚠️ <strong>Falta el Function ID.</strong> Clona el clasificador de algas en Nyckel y pega el ID en la variable <code>NYCKEL_FUNCTION_ID</code> del código. Mientras tanto, se usará la detección local por nombre de archivo.</div>';
+  }
+
   html += '<div class="upload-zone" id="uploadZone">';
   html += '<input type="file" id="fotoAlga" accept="image/*" onchange="previewFoto(event)">';
   html += '<div class="upload-placeholder" id="uploadPlaceholder">';
   html += '<p>📷 Toca para subir una foto del alga</p>';
-  html += '<p>Formatos: JPG, PNG, WEBP</p>';
+  html += '<p>Formatos: JPG, PNG, WEBP · Máx. 5 MB</p>';
   html += '</div>';
   html += '<img id="previewImg" class="oculto" alt="Vista previa">';
   html += '</div>';
@@ -1226,7 +1305,6 @@ function renderDiagnostico(d){
   html += '<div id="resultadoDiagnostico" style="margin-top:1.25rem;"></div>';
   html += '</div>';
 
-  // Guía manual de referencia
   html += '<div class="bloque">';
   html += '<div class="bloque-titulo">Guía de referencia manual</div>';
   html += '<div class="bloque-desc">Si prefieres identificar manualmente, aquí tienes los tipos más comunes con su tratamiento.</div>';
@@ -1254,6 +1332,11 @@ function previewFoto(event){
   var file = event.target.files[0];
   if (!file) return;
 
+  if (file.size > 5 * 1024 * 1024){
+    alert('La imagen es demasiado grande. Máximo 5 MB.');
+    return;
+  }
+
   var reader = new FileReader();
   reader.onload = function(e){
     document.getElementById('previewImg').src = e.target.result;
@@ -1264,6 +1347,33 @@ function previewFoto(event){
   reader.readAsDataURL(file);
 }
 
+async function obtenerTokenNyckel(){
+  // Reutilizar token si aún no ha expirado (margen de 5 minutos)
+  var ahora = Date.now();
+  if (nyckelTokenCache.token && nyckelTokenCache.expira > ahora){
+    return nyckelTokenCache.token;
+  }
+
+  var tokenRes = await fetch('https://www.nyckel.com/connect/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: 'grant_type=client_credentials' +
+          '&client_id=' + encodeURIComponent(NYCKEL_CLIENT_ID) +
+          '&client_secret=' + encodeURIComponent(NYCKEL_CLIENT_SECRET)
+  });
+
+  if (!tokenRes.ok){
+    var errorTxt = await tokenRes.text();
+    throw new Error('Autenticación fallida (' + tokenRes.status + '): ' + errorTxt);
+  }
+
+  var tokenData = await tokenRes.json();
+  nyckelTokenCache.token = tokenData.access_token;
+  // Nyckel expira en ~24 h (86400 s). Guardamos con margen de 5 min.
+  nyckelTokenCache.expira = ahora + (tokenData.expires_in - 300) * 1000;
+  return tokenData.access_token;
+}
+
 async function analizarImagenAlga(){
   var fileInput = document.getElementById('fotoAlga');
   var file = fileInput.files[0];
@@ -1272,59 +1382,67 @@ async function analizarImagenAlga(){
   var cont = document.getElementById('resultadoDiagnostico');
   cont.innerHTML = '<p><span class="spinner"></span>Analizando imagen con IA…</p>';
 
-  // Si no hay credenciales de Nyckel, usar análisis local por nombre de archivo
-  if (!NYCKEL_CLIENT_ID || !NYCKEL_CLIENT_SECRET || !NYCKEL_FUNCTION_ID){
+  // Sin Function ID → usar detección local
+  if (!NYCKEL_FUNCTION_ID){
     var nombre = file.name.toLowerCase();
     var tipoDetectado = detectarPorNombre(nombre);
     if (tipoDetectado){
       mostrarResultado(tipoDetectado, 'local');
     } else {
       cont.innerHTML = '<div class="nota nota-info">' +
-        '<strong>Modo de referencia activado.</strong> Para usar la IA de Nyckel, configura tus credenciales en el código. ' +
-        'Mientras tanto, usa la <strong>Guía de referencia manual</strong> de abajo para identificar el alga.</div>';
+        '<strong>Modo de referencia activado.</strong> Falta el Function ID de Nyckel. ' +
+        'Pega el ID en <code>NYCKEL_FUNCTION_ID</code> para usar la IA real. ' +
+        'Mientras tanto, usa la <strong>Guía de referencia manual</strong> de abajo.</div>';
     }
     return;
   }
 
   try {
-    // 1. Obtener token de acceso
-    var tokenRes = await fetch('https://www.nyckel.com/connect/token', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: 'grant_type=client_credentials&client_id=' + encodeURIComponent(NYCKEL_CLIENT_ID) + '&client_secret=' + encodeURIComponent(NYCKEL_CLIENT_SECRET)
-    });
-
-    if (!tokenRes.ok) throw new Error('Error de autenticación: ' + tokenRes.status);
-    var tokenData = await tokenRes.json();
-    var token = tokenData.access_token;
+    // 1. Token (con caché)
+    var token = await obtenerTokenNyckel();
 
     // 2. Convertir imagen a base64
     var base64 = await fileToBase64(file);
 
     // 3. Llamar a la función de Nyckel
-    var invokeRes = await fetch('https://www.nyckel.com/v1/functions/' + NYCKEL_FUNCTION_ID + '/invoke', {
-      method: 'POST',
-      headers: {
-        'Authorization': 'Bearer ' + token,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ data: base64 })
-    });
+    var invokeRes = await fetch(
+      'https://www.nyckel.com/v1/functions/' + encodeURIComponent(NYCKEL_FUNCTION_ID) + '/invoke',
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ data: base64 })
+      }
+    );
 
-    if (!invokeRes.ok) throw new Error('Error en la clasificación: ' + invokeRes.status);
+    if (!invokeRes.ok){
+      var errorTxt = await invokeRes.text();
+      throw new Error('Clasificación fallida (' + invokeRes.status + '): ' + errorTxt);
+    }
+
     var result = await invokeRes.json();
-
-    // 4. Mapear resultado a nuestro tipo de alga
-    var labelNyckel = result.labelName || '';
+    var labelNyckel = result.labelName || result.label || '';
     var confianza = result.confidence || 0;
+
+    // 4. Mapear al catálogo local
     var tipoLocal = MAPA_NYCKEL[labelNyckel] || detectarPorNyckel(labelNyckel);
 
+    // Si hay otras predicciones, mostrarlas como alternativas
+    var alternativas = (result.scores || [])
+      .slice(0, 3)
+      .map(function(s){ return s.labelName + ' (' + (s.confidence*100).toFixed(0) + '%)'; })
+      .join(' · ');
+
     if (tipoLocal && TIPOS_ALGAS[tipoLocal]){
-      mostrarResultado(tipoLocal, 'nyckel', labelNyckel, confianza);
+      mostrarResultado(tipoLocal, 'nyckel', labelNyckel, confianza, alternativas);
     } else {
-      cont.innerHTML = '<div class="nota nota-info">La IA detectó <strong>' + labelNyckel + '</strong> con ' +
+      cont.innerHTML = '<div class="nota nota-info">' +
+        'La IA detectó <strong>' + labelNyckel + '</strong> con ' +
         (confianza * 100).toFixed(0) + '% de confianza, pero no tenemos una ficha específica para ese género. ' +
-        'Consulta la guía manual de abajo.</div>';
+        (alternativas ? '<br><br><strong>Otras predicciones:</strong> ' + alternativas : '') +
+        '<br><br>Consulta la guía manual de abajo.</div>';
     }
 
   } catch (err) {
@@ -1351,27 +1469,23 @@ function detectarPorNombre(nombre){
   if (nombre.indexOf('staghorn') !== -1 || nombre.indexOf('asta') !== -1 || nombre.indexOf('ciervo') !== -1) return 'staghorn';
   if (nombre.indexOf('punto') !== -1 || nombre.indexOf('spot') !== -1) return 'punto-verde';
   if (nombre.indexOf('polvo') !== -1 || nombre.indexOf('dust') !== -1) return 'green-dust';
-  if (nombre.indexOf('verde') !== -1 && nombre.indexOf('agua') !== -1 || nombre.indexOf('green water') !== -1) return 'green-water';
+  if ((nombre.indexOf('verde') !== -1 && nombre.indexOf('agua') !== -1) || nombre.indexOf('green water') !== -1) return 'green-water';
   return null;
 }
 
 function detectarPorNyckel(label){
-  var mapa = {
-    'Cladophora': 'filamentosa',
-    'Chlorella': 'green-water',
-    'Anabaena': 'cianobacteria',
-    'Aphanizomenon': 'cianobacteria',
-    'Aphanothece': 'cianobacteria',
-    'Aulacoseira': 'diatomeas',
-    'Ceratium': 'green-water',
-    'Chondrus': 'filamentosa',
-    'Coccolithus': 'diatomeas',
-    'Cryptomonas': 'green-water'
-  };
-  return mapa[label] || null;
+  if (!label) return null;
+  var l = label.toLowerCase();
+  if (l.indexOf('cladophora') !== -1) return 'filamentosa';
+  if (l.indexOf('chlorella') !== -1) return 'green-water';
+  if (l.indexOf('anabaena') !== -1 || l.indexOf('aphanizomenon') !== -1 || l.indexOf('aphanothece') !== -1) return 'cianobacteria';
+  if (l.indexOf('aulacoseira') !== -1 || l.indexOf('coccolithus') !== -1) return 'diatomeas';
+  if (l.indexOf('ceratium') !== -1 || l.indexOf('cryptomonas') !== -1) return 'green-water';
+  if (l.indexOf('chondrus') !== -1) return 'filamentosa';
+  return null;
 }
 
-function mostrarResultado(tipo, fuente, labelNyckel, confianza){
+function mostrarResultado(tipo, fuente, labelNyckel, confianza, alternativas){
   var alga = TIPOS_ALGAS[tipo];
   if (!alga) return;
 
@@ -1381,9 +1495,9 @@ function mostrarResultado(tipo, fuente, labelNyckel, confianza){
 
   if (fuente === 'nyckel'){
     html += '<div class="confianza">Detectado por IA (Nyckel: ' + labelNyckel + ') · Confianza: ' +
-      (confianza * 100).toFixed(0) + '%</div>';
+      (confianza * 100).toFixed(1) + '%</div>';
   } else {
-    html += '<div class="confianza">Identificación por referencia · Configura Nyckel para IA en vivo</div>';
+    html += '<div class="confianza">Identificación por nombre de archivo · Configura Nyckel para IA real</div>';
   }
 
   html += '<div class="descripcion">' + alga.descripcion + '</div>';
@@ -1395,13 +1509,19 @@ function mostrarResultado(tipo, fuente, labelNyckel, confianza){
     html += '<li>' + alga.pasos[i] + '</li>';
   }
   html += '</ul>';
+
+  if (alternativas){
+    html += '<div style="font-size:11px; color:var(--gris-500); margin-top:.75rem; padding-top:.75rem; border-top:1px solid var(--gris-200);">' +
+      '<strong>Otras predicciones de la IA:</strong> ' + alternativas + '</div>';
+  }
+
   html += '</div>';
 
   document.getElementById('resultadoDiagnostico').innerHTML = html;
 }
 
 // ============================================================
-// RENDER: CATÁLOGO
+// RENDER: CATÁLOGO (estático)
 // ============================================================
 var filtroCatalogoActivo = 'todas';
 
@@ -1436,14 +1556,14 @@ function renderCatalogo(d){
       var todos = document.querySelectorAll('#filtrosCatalogo .filtro');
       for (var j = 0; j < todos.length; j++) todos[j].classList.remove('active');
       this.classList.add('active');
-      pintarListaCatalogo(d);
+      pintarListaCatalogo();
     });
   }
 
-  pintarListaCatalogo(d);
+  pintarListaCatalogo();
 }
 
-function pintarListaCatalogo(d){
+function pintarListaCatalogo(){
   var cont = document.getElementById('listaCatalogo');
   if (!cont) return;
   var html = '';
