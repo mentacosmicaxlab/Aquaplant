@@ -26,7 +26,8 @@
   .progress-line{height:1px; background:var(--gris-200); position:relative; margin-bottom:.9rem;}
   #progressBar{position:absolute; top:-1px; left:0; height:3px; background:var(--negro); width:0%; transition:width .5s ease;}
   .progress-steps{display:flex; justify-content:space-between; gap:.4rem; font-size:9px; text-transform:uppercase; letter-spacing:.1em; color:var(--gris-500); overflow:hidden;}
-  .progress-steps span{transition:color .2s; white-space:nowrap;}
+  .progress-steps span{transition:color .2s; white-space:nowrap; cursor:pointer; padding:.3rem 0; user-select:none; -webkit-user-select:none; touch-action:manipulation;}
+  .progress-steps span:hover{color:var(--gris-900);}
   .progress-steps span.active{color:var(--negro); font-weight:600;}
   .progress-steps span.done{color:var(--gris-700);}
   @media(max-width:400px){ .progress-steps span:not(.active):not(.done){display:none;} }
@@ -54,6 +55,8 @@
   .btn:hover{background:var(--blanco); color:var(--negro);}
   .btn-ghost{background:transparent; color:var(--gris-700); border-color:transparent; text-decoration:underline; text-underline-offset:4px;}
   .btn-ghost:hover{background:transparent; color:var(--negro); border-color:transparent;}
+  .btn-outline{background:transparent; color:var(--negro); border-color:var(--negro);}
+  .btn-outline:hover{background:var(--negro); color:var(--blanco);}
   .btn-lg{padding:1.1rem 2rem;}
   .btn-full{width:100%;}
   .tabs{display:flex; gap:1.25rem; overflow-x:auto; border-bottom:1px solid var(--gris-200); margin-bottom:1.75rem; scrollbar-width:none; -webkit-overflow-scrolling:touch;}
@@ -117,9 +120,8 @@
   .hero h2{font-size:24px; font-weight:400; letter-spacing:-.02em; color:var(--negro); line-height:1.3; margin-bottom:1rem; max-width:480px; margin-left:auto; margin-right:auto;}
   .hero p{font-size:14px; color:var(--gris-500); max-width:440px; margin:0 auto 1.75rem; line-height:1.7;}
   .hero .features{display:flex; flex-wrap:wrap; gap:1.5rem; justify-content:center; margin-bottom:2rem; font-size:10px; text-transform:uppercase; letter-spacing:.12em; color:var(--gris-500);}
+  .hero .acciones{display:flex; gap:.75rem; justify-content:center; flex-wrap:wrap;}
   .oculto{display:none !important;}
-  .badge{display:inline-block; padding:.15rem .5rem; font-size:9px; text-transform:uppercase; letter-spacing:.1em; background:var(--acento-claro); color:var(--acento); border-radius:2px; margin-left:.35rem; vertical-align:middle;}
-  .badge-api{background:var(--info-claro); color:var(--info);}
   .spinner{display:inline-block; width:14px; height:14px; border:2px solid var(--gris-300); border-top-color:var(--negro); border-radius:50%; animation:spin .6s linear infinite; vertical-align:middle; margin-right:.4rem;}
   @keyframes spin{to{transform:rotate(360deg);}}
   .upload-zone{position:relative; border:2px dashed var(--gris-300); padding:2rem 1rem; text-align:center; cursor:pointer; transition:all .2s; background:var(--gris-50); margin-bottom:1.25rem; border-radius:4px;}
@@ -137,7 +139,6 @@
   .resultado-alga .pasos li:last-child{border-bottom:none;}
   .resultado-alga .pasos li::before{content:"→"; position:absolute; left:0; color:var(--acento); font-weight:bold;}
   .resultado-alga .pasos li strong{color:var(--negro);}
-  .aviso-seguridad{background:var(--alerta-claro); border-left:3px solid var(--alerta); padding:.9rem 1rem; font-size:12px; color:var(--gris-700); line-height:1.6; margin-bottom:1rem;}
   @media(max-width:500px){
     .app{padding:1rem 1rem 4rem;}
     .header{flex-direction:column; align-items:flex-start;}
@@ -175,7 +176,10 @@
       <h2>Un acuario plantado, planificado con precisión.</h2>
       <p>En cuatro pasos tendrás una guía completa de arranque, abonado, mantenimiento, prevención de algas y catálogo de marcas del hobby. Con diagnóstico de algas por foto con IA.</p>
       <div class="features"><span>Arranque</span><span>Abonado</span><span>CO₂</span><span>Algas IA</span><span>Catálogo</span></div>
-      <button class="btn btn-lg" onclick="goToStep(1)">Comenzar</button>
+      <div class="acciones">
+        <button class="btn btn-lg" onclick="goToStep(1)">Comenzar</button>
+        <button class="btn btn-lg btn-outline" onclick="irADiagnosticoAlgas()">📷 Diagnóstico de algas</button>
+      </div>
     </div>
   </section>
 
@@ -494,12 +498,9 @@
 // ============================================================
 // CREDENCIALES NYCKEL
 // ============================================================
-// ⚠️ ADVERTENCIA: estas credenciales quedan visibles en el HTML.
-//    Cualquiera que abra el código fuente puede verlas y usarlas.
-//    Para producción, usa un proxy o rota las credenciales.
 var NYCKEL_CLIENT_ID = 'mfxhnsczibgq7jj6wded7hz6s9k4qfsv';
 var NYCKEL_CLIENT_SECRET = 't9xg6845dwx6o7ybfv94dco4fqpd8792jkwxl20o89zakshkb8pu6nhhlt1fjrx6';
-var NYCKEL_FUNCTION_ID = '';  // ⚠️ PENDIENTE: pega aquí el ID de tu clasificador clonado
+var NYCKEL_FUNCTION_ID = 'yxh70jqfpue9010o';
 
 // ============================================================
 // CATÁLOGO DE MARCAS DEL HOBBY
@@ -713,17 +714,57 @@ var TIPOS_ALGAS = {
   }
 };
 
+// ============================================================
+// MAPA NYCKEL AMPLIADO (44 especies)
+// ============================================================
 var MAPA_NYCKEL = {
-  'Cladophora': 'filamentosa',
-  'Chlorella': 'green-water',
+  // Cianobacterias
   'Anabaena': 'cianobacteria',
   'Aphanizomenon': 'cianobacteria',
   'Aphanothece': 'cianobacteria',
+  'Microcystis': 'cianobacteria',
+  'Oscillatoria': 'cianobacteria',
+  'Planktothrix': 'cianobacteria',
+  'Nostoc': 'cianobacteria',
+  'Lyngbya': 'cianobacteria',
+
+  // Diatomeas
   'Aulacoseira': 'diatomeas',
-  'Ceratium': 'green-water',
-  'Chondrus': 'filamentosa',
   'Coccolithus': 'diatomeas',
-  'Cryptomonas': 'green-water'
+  'Navicula': 'diatomeas',
+  'Nitzschia': 'diatomeas',
+  'Pinnularia': 'diatomeas',
+  'Synedra': 'diatomeas',
+  'Fragilaria': 'diatomeas',
+  'Cyclotella': 'diatomeas',
+  'Melosira': 'diatomeas',
+
+  // Verdes filamentosas
+  'Cladophora': 'filamentosa',
+  'Spirogyra': 'filamentosa',
+  'Zygnema': 'filamentosa',
+  'Oedogonium': 'filamentosa',
+  'Ulothrix': 'filamentosa',
+  'Chondrus': 'filamentosa',
+  'Mougeotia': 'filamentosa',
+  'Rhizoclonium': 'filamentosa',
+
+  // Verdes unicelulares (agua verde)
+  'Chlorella': 'green-water',
+  'Scenedesmus': 'green-water',
+  'Chlamydomonas': 'green-water',
+  'Euglena': 'green-water',
+  'Cryptomonas': 'green-water',
+  'Ceratium': 'green-water',
+  'Ankistrodesmus': 'green-water',
+  'Pediastrum': 'green-water',
+
+  // Dinoflagelados y otros
+  'Gymnodinium': 'green-dust',
+  'Peridinium': 'green-dust',
+  'Prorocentrum': 'punto-verde',
+  'Dinobryon': 'green-dust',
+  'Synura': 'green-dust'
 };
 
 // ============================================================
@@ -793,10 +834,11 @@ function aplicarPresetSustrato(){
 // ESTADO
 // ============================================================
 var currentStep = 0;
+var planGenerado = false;
 var historial = [];
 try { historial = JSON.parse(localStorage.getItem('aquaPlannerHistorial') || '[]'); } catch(e){ historial = []; }
 
-// Cache del token de Nyckel (válido por ~24 horas)
+// Cache del token de Nyckel (el token dura 1 hora)
 var nyckelTokenCache = { token: null, expira: 0 };
 
 // ============================================================
@@ -821,6 +863,96 @@ function goToStep(n){
   }
   window.scrollTo({top:0, behavior:'smooth'});
 }
+
+// ============================================================
+// NAVEGACIÓN DESDE EL MENÚ DE PROGRESO
+// ============================================================
+function setupProgressSteps(){
+  var spans = document.querySelectorAll('#progressSteps span');
+  for (var i = 0; i < spans.length; i++){
+    (function(sp){
+      sp.addEventListener('click', function(){
+        var n = parseInt(sp.getAttribute('data-step'));
+        if (n === 0) goToStep(1);
+        else if (n === 1) goToStep(2);
+        else if (n === 2) goToStep(3);
+        else if (n === 3) irAPlan();
+        else if (n === 4) irADiagnosticoAlgas();
+        else if (n === 5) goToStep(5);
+      });
+    })(spans[i]);
+  }
+}
+
+// Genera el contenido del plan sin navegar
+function generarPlanContenido(){
+  var litros = calcularVolumen();
+  if (litros <= 0) return false;
+
+  var d = {
+    litros: litros,
+    ph: parseFloat(document.getElementById('ph').value) || 7,
+    gh: parseFloat(document.getElementById('gh').value) || 8,
+    kh: parseFloat(document.getElementById('kh').value) || 4,
+    tds: parseFloat(document.getElementById('tds').value) || 200,
+    temp: parseFloat(document.getElementById('temperatura').value) || 25,
+    iluminacion: document.getElementById('iluminacion').value,
+    tipoLampara: document.getElementById('tipoLampara').value,
+    fotoperiodo: parseFloat(document.getElementById('fotoperiodo').value) || 8,
+    tipoCO2: document.getElementById('tipoCO2').value,
+    tipoFiltracion: document.getElementById('tipoFiltracion').value,
+    caudal: parseFloat(document.getElementById('caudal').value) || 600,
+    marcaFiltro: document.getElementById('marcaFiltro').value,
+    tipoSustrato: document.getElementById('tipoSustrato').value,
+    antiguedad: document.getElementById('antiguedadSustrato').value,
+    marcaSustrato: document.getElementById('marcaSustrato').value,
+    tipoAgua: document.getElementById('tipoAgua').value,
+    invertebrados: document.getElementById('invertebrados').value,
+    carga: document.getElementById('carga').value,
+    tipoRocas: document.getElementById('tipoRocas').value,
+    tieneTiras: document.getElementById('tieneTiras').checked,
+    tieneTDS: document.getElementById('tieneTDS').checked,
+    tienePH: document.getElementById('tienePH').checked,
+    tieneKitGotas: document.getElementById('tieneKitGotas').checked,
+    tipoPlantas: document.getElementById('tipoPlantas').value,
+    densidad: document.getElementById('densidad').value,
+    plantasRojas: document.getElementById('plantasRojas').value
+  };
+
+  d.cambioAgua = calcularCambioAgua(d);
+
+  renderArranque(d);
+  renderAbonado(d);
+  renderAgua(d);
+  renderMantenimiento(d);
+  renderAlgas(d);
+  renderDiagnostico(d);
+  renderCatalogo(d);
+  planGenerado = true;
+  return true;
+}
+
+// Cambia a una pestaña del paso 4 (generando el plan si hace falta)
+function irATabPlan(tabName){
+  if (!planGenerado){
+    if (!generarPlanContenido()){
+      alert('Introduce medidas válidas en la sección Básicos.');
+      return;
+    }
+  }
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('.tab-panel');
+  for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
+  for (var j = 0; j < panels.length; j++) panels[j].classList.remove('active');
+  var targetTab = document.querySelector('.tab[data-tab="' + tabName + '"]');
+  var targetPanel = document.getElementById('tab-' + tabName);
+  if (targetTab) targetTab.classList.add('active');
+  if (targetPanel) targetPanel.classList.add('active');
+  goToStep(4);
+}
+
+function irAPlan(){ irATabPlan('arranque'); }
+function irADiagnosticoAlgas(){ irATabPlan('diagnostico'); }
 
 // ============================================================
 // CHIPS
@@ -868,62 +1000,17 @@ function calcularCambioAgua(d){
 // GENERAR PLAN
 // ============================================================
 function generarPlan(){
-  try {
-    var litros = calcularVolumen();
-    if (litros <= 0){ alert('Introduce medidas válidas.'); return; }
-
-    var d = {
-      litros: litros,
-      ph: parseFloat(document.getElementById('ph').value) || 7,
-      gh: parseFloat(document.getElementById('gh').value) || 8,
-      kh: parseFloat(document.getElementById('kh').value) || 4,
-      tds: parseFloat(document.getElementById('tds').value) || 200,
-      temp: parseFloat(document.getElementById('temperatura').value) || 25,
-      iluminacion: document.getElementById('iluminacion').value,
-      tipoLampara: document.getElementById('tipoLampara').value,
-      fotoperiodo: parseFloat(document.getElementById('fotoperiodo').value) || 8,
-      tipoCO2: document.getElementById('tipoCO2').value,
-      tipoFiltracion: document.getElementById('tipoFiltracion').value,
-      caudal: parseFloat(document.getElementById('caudal').value) || 600,
-      marcaFiltro: document.getElementById('marcaFiltro').value,
-      tipoSustrato: document.getElementById('tipoSustrato').value,
-      antiguedad: document.getElementById('antiguedadSustrato').value,
-      marcaSustrato: document.getElementById('marcaSustrato').value,
-      tipoAgua: document.getElementById('tipoAgua').value,
-      invertebrados: document.getElementById('invertebrados').value,
-      carga: document.getElementById('carga').value,
-      tipoRocas: document.getElementById('tipoRocas').value,
-      tieneTiras: document.getElementById('tieneTiras').checked,
-      tieneTDS: document.getElementById('tieneTDS').checked,
-      tienePH: document.getElementById('tienePH').checked,
-      tieneKitGotas: document.getElementById('tieneKitGotas').checked,
-      tipoPlantas: document.getElementById('tipoPlantas').value,
-      densidad: document.getElementById('densidad').value,
-      plantasRojas: document.getElementById('plantasRojas').value
-    };
-
-    d.cambioAgua = calcularCambioAgua(d);
-
-    renderArranque(d);
-    renderAbonado(d);
-    renderAgua(d);
-    renderMantenimiento(d);
-    renderAlgas(d);
-    renderDiagnostico(d);
-    renderCatalogo(d);
-
-    var tabs = document.querySelectorAll('.tab');
-    var panels = document.querySelectorAll('.tab-panel');
-    for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
-    for (var j = 0; j < panels.length; j++) panels[j].classList.remove('active');
-    tabs[0].classList.add('active');
-    document.getElementById('tab-arranque').classList.add('active');
-
-    goToStep(4);
-  } catch(err){
-    console.error(err);
-    alert('Error al generar el plan: ' + err.message);
+  if (!generarPlanContenido()){
+    alert('Introduce medidas válidas.');
+    return;
   }
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('.tab-panel');
+  for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
+  for (var j = 0; j < panels.length; j++) panels[j].classList.remove('active');
+  tabs[0].classList.add('active');
+  document.getElementById('tab-arranque').classList.add('active');
+  goToStep(4);
 }
 
 // ============================================================
@@ -1208,7 +1295,7 @@ function renderMantenimiento(d){
 }
 
 // ============================================================
-// RENDER: ALGAS (guía estática)
+// RENDER: ALGAS
 // ============================================================
 function renderAlgas(d){
   var riesgo = 0;
@@ -1279,17 +1366,13 @@ function renderAlgas(d){
 }
 
 // ============================================================
-// RENDER: DIAGNÓSTICO POR IA (Nyckel)
+// RENDER: DIAGNÓSTICO POR IA
 // ============================================================
 function renderDiagnostico(d){
   var html = '';
   html += '<div class="bloque">';
   html += '<div class="bloque-titulo">Diagnóstico de algas por foto</div>';
-  html += '<div class="bloque-desc">Sube una foto clara del alga. La IA la comparará con su base de datos y te dará un diagnóstico con pasos específicos.</div>';
-
-  if (!NYCKEL_FUNCTION_ID){
-    html += '<div class="aviso-seguridad">⚠️ <strong>Falta el Function ID.</strong> Clona el clasificador de algas en Nyckel y pega el ID en la variable <code>NYCKEL_FUNCTION_ID</code> del código. Mientras tanto, se usará la detección local por nombre de archivo.</div>';
-  }
+  html += '<div class="bloque-desc">Sube una foto clara del alga. La IA la comparará con su base de datos de 44 especies y te dará un diagnóstico con pasos específicos.</div>';
 
   html += '<div class="upload-zone" id="uploadZone">';
   html += '<input type="file" id="fotoAlga" accept="image/*" onchange="previewFoto(event)">';
@@ -1334,6 +1417,7 @@ function previewFoto(event){
 
   if (file.size > 5 * 1024 * 1024){
     alert('La imagen es demasiado grande. Máximo 5 MB.');
+    event.target.value = '';
     return;
   }
 
@@ -1348,8 +1432,8 @@ function previewFoto(event){
 }
 
 async function obtenerTokenNyckel(){
-  // Reutilizar token si aún no ha expirado (margen de 5 minutos)
   var ahora = Date.now();
+  // Reutilizar token si aún no ha expirado (con margen de 5 minutos)
   if (nyckelTokenCache.token && nyckelTokenCache.expira > ahora){
     return nyckelTokenCache.token;
   }
@@ -1369,8 +1453,9 @@ async function obtenerTokenNyckel(){
 
   var tokenData = await tokenRes.json();
   nyckelTokenCache.token = tokenData.access_token;
-  // Nyckel expira en ~24 h (86400 s). Guardamos con margen de 5 min.
-  nyckelTokenCache.expira = ahora + (tokenData.expires_in - 300) * 1000;
+  // Token dura 3600 s (1 h). Caché 55 min.
+  var expiresIn = tokenData.expires_in || 3600;
+  nyckelTokenCache.expira = ahora + (expiresIn - 300) * 1000;
   return tokenData.access_token;
 }
 
@@ -1381,21 +1466,6 @@ async function analizarImagenAlga(){
 
   var cont = document.getElementById('resultadoDiagnostico');
   cont.innerHTML = '<p><span class="spinner"></span>Analizando imagen con IA…</p>';
-
-  // Sin Function ID → usar detección local
-  if (!NYCKEL_FUNCTION_ID){
-    var nombre = file.name.toLowerCase();
-    var tipoDetectado = detectarPorNombre(nombre);
-    if (tipoDetectado){
-      mostrarResultado(tipoDetectado, 'local');
-    } else {
-      cont.innerHTML = '<div class="nota nota-info">' +
-        '<strong>Modo de referencia activado.</strong> Falta el Function ID de Nyckel. ' +
-        'Pega el ID en <code>NYCKEL_FUNCTION_ID</code> para usar la IA real. ' +
-        'Mientras tanto, usa la <strong>Guía de referencia manual</strong> de abajo.</div>';
-    }
-    return;
-  }
 
   try {
     // 1. Token (con caché)
@@ -1429,11 +1499,16 @@ async function analizarImagenAlga(){
     // 4. Mapear al catálogo local
     var tipoLocal = MAPA_NYCKEL[labelNyckel] || detectarPorNyckel(labelNyckel);
 
-    // Si hay otras predicciones, mostrarlas como alternativas
-    var alternativas = (result.scores || [])
-      .slice(0, 3)
-      .map(function(s){ return s.labelName + ' (' + (s.confidence*100).toFixed(0) + '%)'; })
-      .join(' · ');
+    // Alternativas (top 3 predicciones)
+    var alternativas = '';
+    if (result.scores && result.scores.length > 1){
+      var top = result.scores.slice(0, 3);
+      var partes = [];
+      for (var i = 0; i < top.length; i++){
+        partes.push(top[i].labelName + ' (' + (top[i].confidence * 100).toFixed(0) + '%)');
+      }
+      alternativas = partes.join(' · ');
+    }
 
     if (tipoLocal && TIPOS_ALGAS[tipoLocal]){
       mostrarResultado(tipoLocal, 'nyckel', labelNyckel, confianza, alternativas);
@@ -1461,27 +1536,42 @@ function fileToBase64(file){
   });
 }
 
-function detectarPorNombre(nombre){
-  if (nombre.indexOf('barba') !== -1 || nombre.indexOf('bba') !== -1 || nombre.indexOf('beard') !== -1) return 'barba-negra';
-  if (nombre.indexOf('filament') !== -1 || nombre.indexOf('pelo') !== -1 || nombre.indexOf('hair') !== -1) return 'filamentosa';
-  if (nombre.indexOf('ciano') !== -1 || nombre.indexOf('cyano') !== -1 || nombre.indexOf('azul') !== -1 || nombre.indexOf('blue') !== -1) return 'cianobacteria';
-  if (nombre.indexOf('diatom') !== -1 || nombre.indexOf('marron') !== -1 || nombre.indexOf('brown') !== -1) return 'diatomeas';
-  if (nombre.indexOf('staghorn') !== -1 || nombre.indexOf('asta') !== -1 || nombre.indexOf('ciervo') !== -1) return 'staghorn';
-  if (nombre.indexOf('punto') !== -1 || nombre.indexOf('spot') !== -1) return 'punto-verde';
-  if (nombre.indexOf('polvo') !== -1 || nombre.indexOf('dust') !== -1) return 'green-dust';
-  if ((nombre.indexOf('verde') !== -1 && nombre.indexOf('agua') !== -1) || nombre.indexOf('green water') !== -1) return 'green-water';
-  return null;
-}
-
 function detectarPorNyckel(label){
   if (!label) return null;
   var l = label.toLowerCase();
-  if (l.indexOf('cladophora') !== -1) return 'filamentosa';
-  if (l.indexOf('chlorella') !== -1) return 'green-water';
-  if (l.indexOf('anabaena') !== -1 || l.indexOf('aphanizomenon') !== -1 || l.indexOf('aphanothece') !== -1) return 'cianobacteria';
-  if (l.indexOf('aulacoseira') !== -1 || l.indexOf('coccolithus') !== -1) return 'diatomeas';
-  if (l.indexOf('ceratium') !== -1 || l.indexOf('cryptomonas') !== -1) return 'green-water';
-  if (l.indexOf('chondrus') !== -1) return 'filamentosa';
+
+  // Cianobacterias
+  if (l.indexOf('anabaena') !== -1 || l.indexOf('aphanizomenon') !== -1 ||
+      l.indexOf('aphanothece') !== -1 || l.indexOf('microcystis') !== -1 ||
+      l.indexOf('oscillatoria') !== -1 || l.indexOf('planktothrix') !== -1 ||
+      l.indexOf('nostoc') !== -1 || l.indexOf('lyngbya') !== -1) return 'cianobacteria';
+
+  // Diatomeas
+  if (l.indexOf('aulacoseira') !== -1 || l.indexOf('coccolithus') !== -1 ||
+      l.indexOf('navicula') !== -1 || l.indexOf('nitzschia') !== -1 ||
+      l.indexOf('pinnularia') !== -1 || l.indexOf('synedra') !== -1 ||
+      l.indexOf('fragilaria') !== -1 || l.indexOf('cyclotella') !== -1 ||
+      l.indexOf('melosira') !== -1) return 'diatomeas';
+
+  // Filamentosas
+  if (l.indexOf('cladophora') !== -1 || l.indexOf('spirogyra') !== -1 ||
+      l.indexOf('zygnema') !== -1 || l.indexOf('oedogonium') !== -1 ||
+      l.indexOf('ulothrix') !== -1 || l.indexOf('chondrus') !== -1 ||
+      l.indexOf('mougeotia') !== -1 || l.indexOf('rhizoclonium') !== -1) return 'filamentosa';
+
+  // Agua verde
+  if (l.indexOf('chlorella') !== -1 || l.indexOf('scenedesmus') !== -1 ||
+      l.indexOf('chlamydomonas') !== -1 || l.indexOf('euglena') !== -1 ||
+      l.indexOf('cryptomonas') !== -1 || l.indexOf('ceratium') !== -1 ||
+      l.indexOf('ankistrodesmus') !== -1 || l.indexOf('pediastrum') !== -1) return 'green-water';
+
+  // Polvo verde
+  if (l.indexOf('gymnodinium') !== -1 || l.indexOf('peridinium') !== -1 ||
+      l.indexOf('dinobryon') !== -1 || l.indexOf('synura') !== -1) return 'green-dust';
+
+  // Punto verde
+  if (l.indexOf('prorocentrum') !== -1) return 'punto-verde';
+
   return null;
 }
 
@@ -1492,14 +1582,8 @@ function mostrarResultado(tipo, fuente, labelNyckel, confianza, alternativas){
   var html = '';
   html += '<div class="resultado-alga">';
   html += '<h4>' + alga.emoji + ' ' + alga.nombre + '</h4>';
-
-  if (fuente === 'nyckel'){
-    html += '<div class="confianza">Detectado por IA (Nyckel: ' + labelNyckel + ') · Confianza: ' +
-      (confianza * 100).toFixed(1) + '%</div>';
-  } else {
-    html += '<div class="confianza">Identificación por nombre de archivo · Configura Nyckel para IA real</div>';
-  }
-
+  html += '<div class="confianza">Detectado por IA (Nyckel: <em>' + labelNyckel + '</em>) · Confianza: ' +
+    (confianza * 100).toFixed(1) + '%</div>';
   html += '<div class="descripcion">' + alga.descripcion + '</div>';
   html += '<div style="font-size:12px; color:var(--gris-500); margin-bottom:.75rem;"><strong>Causa:</strong> ' + alga.causa + '</div>';
 
@@ -1512,7 +1596,7 @@ function mostrarResultado(tipo, fuente, labelNyckel, confianza, alternativas){
 
   if (alternativas){
     html += '<div style="font-size:11px; color:var(--gris-500); margin-top:.75rem; padding-top:.75rem; border-top:1px solid var(--gris-200);">' +
-      '<strong>Otras predicciones de la IA:</strong> ' + alternativas + '</div>';
+      '<strong>Otras predicciones:</strong> ' + alternativas + '</div>';
   }
 
   html += '</div>';
@@ -1521,7 +1605,7 @@ function mostrarResultado(tipo, fuente, labelNyckel, confianza, alternativas){
 }
 
 // ============================================================
-// RENDER: CATÁLOGO (estático)
+// RENDER: CATÁLOGO
 // ============================================================
 var filtroCatalogoActivo = 'todas';
 
@@ -1726,6 +1810,7 @@ function borrarHistorial(){
 document.addEventListener('DOMContentLoaded', function(){
   setupChips();
   setupTabs();
+  setupProgressSteps();
   calcularVolumen();
 
   var ids = ['largo','ancho','alto','porcentajeDecoracion'];
