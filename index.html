@@ -11,7 +11,7 @@
     --negro:#111; --gris-900:#1a1a1a; --gris-700:#4a4a4a; --gris-500:#8a8a8a;
     --gris-300:#d4d4d4; --gris-200:#e5e5e5; --gris-100:#f2f2f2; --gris-50:#fafafa;
     --blanco:#fff; --acento:#3d5c48; --acento-claro:#e8ede9;
-    --alerta:#b04a3f; --alerta-claro:#f5e6e4;
+    --alerta:#b04a3f; --alerta-claro:#f5e6e4; --info:#1a56db; --info-claro:#e8f0fe;
   }
   html{scroll-behavior:smooth; -webkit-text-size-adjust:100%; text-size-adjust:100%;}
   body{font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; background:var(--blanco); color:var(--gris-900); line-height:1.6; font-size:15px; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
@@ -68,6 +68,7 @@
   .nota strong{color:var(--negro); font-weight:600;}
   .nota-acento{border-left-color:var(--acento); background:var(--acento-claro); padding:.9rem 1rem;}
   .nota-aviso{border-left-color:var(--alerta); background:var(--alerta-claro); padding:.9rem 1rem;}
+  .nota-info{border-left-color:var(--info); background:var(--info-claro); padding:.9rem 1rem;}
   .tabla{width:100%; border-collapse:collapse; font-size:13px; margin:.4rem 0;}
   .tabla th{text-align:left; padding:.7rem 0; border-bottom:1px solid var(--gris-300); font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:var(--gris-500); font-weight:500;}
   .tabla td{padding:.7rem 0; border-bottom:1px solid var(--gris-100); color:var(--gris-700); vertical-align:top;}
@@ -93,13 +94,13 @@
   .lista-lim li{font-size:13px; color:var(--gris-700); padding:.55rem 0; border-bottom:1px solid var(--gris-100); display:flex; gap:.65rem; align-items:baseline;}
   .lista-lim li:last-child{border-bottom:none;}
   .lista-lim li::before{content:"—"; color:var(--gris-300); flex-shrink:0;}
-  .marca-card{padding:1.1rem; background:var(--gris-50-); margin-bottom:.65rem;}
-  .m700arca);-card h4{font-size: cursor12px; text-transform:uppercase; letter-spacing:.12em; color:var(--gris-900); font-weight:600; margin-bottom:.4rem; display:flex; justify-content:space-between; align-items:baseline; gap:.75rem; flex-wrap:wrap;}
+  .marca-card{padding:1.1rem; background:var(--gris-50); margin-bottom:.65rem;}
+  .marca-card h4{font-size:12px; text-transform:uppercase; letter-spacing:.12em; color:var(--gris-900); font-weight:600; margin-bottom:.4rem; display:flex; justify-content:space-between; align-items:baseline; gap:.75rem; flex-wrap:wrap;}
   .marca-card h4 .categoria{font-size:9px; color:var(--gris-500); font-weight:400; letter-spacing:.1em;}
   .marca-card .modelos{font-size:12px; color:var(--gris-700); line-height:1.7; margin-bottom:.4rem;}
   .marca-card .nota-marca{font-size:11px; color:var(--gris-500); font-style:italic;}
   .filtros{display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:1.25rem;}
-  .filtro{padding:.5rem .9rem; border:1px solid var(--gris-300); background:var(--blanco); font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--gris:pointer; transition:all .15s; touch-action:manipulation;}
+  .filtro{padding:.5rem .9rem; border:1px solid var(--gris-300); background:var(--blanco); font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--gris-700); cursor:pointer; transition:all .15s; touch-action:manipulation;}
   .filtro.active{background:var(--negro); color:var(--blanco); border-color:var(--negro);}
   .marca-detalle{padding:1.25rem; background:var(--gris-50); margin:.75rem 0;}
   .marca-detalle h4{font-size:12px; text-transform:uppercase; letter-spacing:.15em; color:var(--gris-900); font-weight:500; margin-bottom:.6rem;}
@@ -121,7 +122,8 @@
   .hero .features{display:flex; flex-wrap:wrap; gap:1.5rem; justify-content:center; margin-bottom:2rem; font-size:10px; text-transform:uppercase; letter-spacing:.12em; color:var(--gris-500);}
   .oculto{display:none !important;}
   .badge{display:inline-block; padding:.15rem .5rem; font-size:9px; text-transform:uppercase; letter-spacing:.1em; background:var(--acento-claro); color:var(--acento); border-radius:2px; margin-left:.35rem; vertical-align:middle;}
-  .badge-api{background:#e8f0fe; color:#1a56db;}
+  .badge-api{background:var(--info-claro); color:var(--info);}
+  .badge-local{background:var(--gris-100); color:var(--gris-700);}
   .search-box{display:flex; gap:.5rem; margin-bottom:1rem;}
   .search-box input{flex:1; padding:.7rem 0; border:none; border-bottom:1px solid var(--gris-300); background:transparent; color:var(--negro);}
   .search-box input:focus{outline:none; border-bottom-color:var(--negro);}
@@ -136,6 +138,26 @@
   .tooltip{position:relative; display:inline-block; border-bottom:1px dotted var(--gris-500); cursor:help;}
   .tooltip .tooltiptext{visibility:hidden; width:220px; background:var(--negro); color:var(--blanco); text-align:left; padding:.6rem .8rem; font-size:11px; line-height:1.5; position:absolute; z-index:10; bottom:125%; left:50%; margin-left:-110px; opacity:0; transition:opacity .2s;}
   .tooltip:hover .tooltiptext{visibility:visible; opacity:1;}
+
+  /* Zona de subida de fotos */
+  .upload-zone{position:relative; border:2px dashed var(--gris-300); padding:2rem 1rem; text-align:center; cursor:pointer; transition:all .2s; background:var(--gris-50); margin-bottom:1.25rem; border-radius:4px;}
+  .upload-zone:hover{border-color:var(--negro); background:var(--blanco);}
+  .upload-zone input[type="file"]{position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%;}
+  .upload-zone .upload-placeholder p{font-size:13px; color:var(--gris-500);}
+  .upload-zone .upload-placeholder p:first-child{font-size:15px; color:var(--gris-700); margin-bottom:.35rem;}
+  .upload-zone img{max-width:100%; max-height:300px; object-fit:contain; border-radius:4px;}
+
+  /* Resultado de identificación */
+  .resultado-alga{padding:1.25rem; background:var(--gris-50); border-left:3px solid var(--alerta); margin:1rem 0;}
+  .resultado-alga h4{font-size:14px; font-weight:600; color:var(--negro); margin-bottom:.5rem;}
+  .resultado-alga .confianza{font-size:11px; color:var(--gris-500); margin-bottom:.75rem;}
+  .resultado-alga .descripcion{font-size:13px; color:var(--gris-700); line-height:1.7; margin-bottom:.75rem;}
+  .resultado-alga .pasos{list-style:none; padding:0;}
+  .resultado-alga .pasos li{font-size:13px; color:var(--gris-700); padding:.5rem 0 .5rem 1.4rem; position:relative; border-bottom:1px solid var(--gris-100);}
+  .resultado-alga .pasos li:last-child{border-bottom:none;}
+  .resultado-alga .pasos li::before{content:"→"; position:absolute; left:0; color:var(--acento); font-weight:bold;}
+  .resultado-alga .pasos li strong{color:var(--negro);}
+
   @media(max-width:500px){
     .app{padding:1rem 1rem 4rem;}
     .header{flex-direction:column; align-items:flex-start;}
@@ -152,7 +174,7 @@
 
   <header class="header">
     <div><h1>Aqua Planner</h1><p class="sub">Asistente para acuarios plantados</p></div>
-    <div class="aviso">Búsqueda en vivo<br><span class="badge badge-api">API Atlarium</span></div>
+    <div class="aviso">Diagnóstico por IA<br><span class="badge badge-api">Nyckel</span></div>
   </header>
 
   <div class="progress">
@@ -162,7 +184,8 @@
       <span data-step="1">Equipo</span>
       <span data-step="2">Plantas</span>
       <span data-step="3">Plan</span>
-      <span data-step="4">Avances</span>
+      <span data-step="4">Algas</span>
+      <span data-step="5">Avances</span>
     </div>
   </div>
 
@@ -170,8 +193,8 @@
   <section class="step active" data-step="0">
     <div class="hero">
       <h2>Un acuario plantado, planificado con precisión.</h2>
-      <p>En cuatro pasos tendrás una guía completa de arranque, abonado, mantenimiento, prevención de algas y catálogo de marcas del hobby. Con búsqueda en tiempo real contra la base de datos de Atlarium.</p>
-      <div class="features"><span>Arranque</span><span>Abonado</span><span>CO₂</span><span>Algas</span><span>Catálogo API</span></div>
+      <p>En cuatro pasos tendrás una guía completa de arranque, abonado, mantenimiento, prevención de algas y catálogo de marcas del hobby. Con diagnóstico de algas por foto con IA.</p>
+      <div class="features"><span>Arranque</span><span>Abonado</span><span>CO₂</span><span>Algas IA</span><span>Catálogo</span></div>
       <button class="btn btn-lg" onclick="goToStep(1)">Comenzar</button>
     </div>
   </section>
@@ -375,15 +398,6 @@
       </div>
     </div>
     <div class="bloque">
-      <div class="bloque-titulo">Búsqueda en vivo de productos</div>
-      <div class="bloque-desc">Escribe el nombre de un producto, marca o categoría. Se consultará la base de datos de Atlarium en tiempo real.</div>
-      <div class="search-box">
-        <input type="text" id="busquedaProducto" placeholder="Ej: filtro canister, LED RGB, sustrato ADA…" onkeydown="if(event.key==='Enter') buscarProductos()">
-        <button onclick="buscarProductos()">Buscar</button>
-      </div>
-      <div id="resultadosProductos" class="resultados-api"></div>
-    </div>
-    <div class="bloque">
       <div class="bloque-titulo">Herramientas de medición</div>
       <div class="bloque-desc">Marca lo que tienes. La recomendación se adapta a tus herramientas.</div>
       <div class="chips">
@@ -429,15 +443,6 @@
         </select>
       </div>
     </div>
-    <div class="bloque">
-      <div class="bloque-titulo">Búsqueda en vivo de plantas</div>
-      <div class="bloque-desc">Consulta la base de datos de plantas acuáticas de Atlarium.</div>
-      <div class="search-box">
-        <input type="text" id="busquedaPlanta" placeholder="Ej: Anubias, Rotala, tapizante…" onkeydown="if(event.key==='Enter') buscarPlantas()">
-        <button onclick="buscarPlantas()">Buscar</button>
-      </div>
-      <div id="resultadosPlantas" class="resultados-api"></div>
-    </div>
     <div class="nav">
       <button class="btn btn-ghost" onclick="goToStep(2)">Atrás</button>
       <button class="btn btn-lg" onclick="generarPlan()">Generar mi plan</button>
@@ -452,13 +457,15 @@
       <button class="tab" data-tab="agua">Agua</button>
       <button class="tab" data-tab="mantenimiento">Mantenimiento</button>
       <button class="tab" data-tab="algas">Algas</button>
-      <button class="tab" data-tab="catalogo">Catálogo API</button>
+      <button class="tab" data-tab="diagnostico">Diagnóstico IA</button>
+      <button class="tab" data-tab="catalogo">Catálogo</button>
     </div>
     <div id="tab-arranque" class="tab-panel active"></div>
     <div id="tab-abonado" class="tab-panel"></div>
     <div id="tab-agua" class="tab-panel"></div>
     <div id="tab-mantenimiento" class="tab-panel"></div>
     <div id="tab-algas" class="tab-panel"></div>
+    <div id="tab-diagnostico" class="tab-panel"></div>
     <div id="tab-catalogo" class="tab-panel"></div>
     <div class="nav">
       <button class="btn btn-ghost" onclick="goToStep(3)">Editar datos</button>
@@ -505,123 +512,150 @@
 
 <script>
 // ============================================================
-// API ATLARIUM · BÚSQUEDA EN VIVO
+// CONFIGURACIÓN DE NYCKEL
 // ============================================================
-var API_URL = 'https://mcp.atlarium.bio/mcp';
-var requestId = 1;
+// 1. Regístrate gratis en https://www.nyckel.com
+// 2. Clona el clasificador de algas: https://www.nyckel.com/pretrained-classifiers/algae-species/clone
+// 3. Copia tu Client ID y Client Secret desde Access Management
+// 4. Pégalos aquí abajo:
+var NYCKEL_CLIENT_ID = '';      // ← Tu Client ID
+var NYCKEL_CLIENT_SECRET = '';  // ← Tu Client Secret
+var NYCKEL_FUNCTION_ID = '';    // ← ID de tu función clonada
 
-/**
- * Llama a una herramienta del servidor MCP de Atlarium.
- * @param {string} toolName - Nombre de la herramienta (ej: 'search_products')
- * @param {object} args - Argumentos de la herramienta
- * @returns {Promise<object>} - Resultado parseado
- */
-async function callMCP(toolName, args) {
-  var body = {
-    jsonrpc: '2.0',
-    id: requestId++,
-    method: 'tools/call',
-    params: {
-      name: toolName,
-      arguments: args || {}
-    }
-  };
-
-  var res = await fetch(API_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
-  });
-
-  if (!res.ok) throw new Error('HTTP ' + res.status);
-
-  var data = await res.json();
-  if (data.error) throw new Error(data.error.message || 'Error en la API');
-
-  // El resultado viene en data.result.content[0].text (JSON string)
-  var content = data.result && data.result.content;
-  if (content && content[0] && content[0].text) {
-    try { return JSON.parse(content[0].text); } catch(e) { return content[0].text; }
+// ============================================================
+// BASE DE DATOS LOCAL DE ALGAS (respaldo + tratamientos)
+// ============================================================
+var TIPOS_ALGAS = {
+  'diatomeas': {
+    nombre: 'Diatomeas (algas marrones)',
+    emoji: '🟤',
+    descripcion: 'Polvo marrón o dorado sobre cristales, hojas y decoración. Muy común en acuarios nuevos.',
+    causa: 'Acuario nuevo (menos de 6 semanas) con exceso de silicatos. El ciclo del nitrógeno aún no está completo.',
+    pasos: [
+      'Espera: es normal y desaparecen solas entre 2 y 4 semanas.',
+      'Reduce el fotoperíodo a 6 horas durante las primeras 2 semanas.',
+      'Haz cambios de agua del 30% cada 2-3 días.',
+      'Introduce Otocinclus (2-3 por cada 60 L) y caracoles Neritina.',
+      'Evita el exceso de comida: los restos alimentan las diatomeas.',
+      'Si persisten después de 6 semanas, revisa el silicato en tu agua (puede venir de arena o rocas).'
+    ]
+  },
+  'punto-verde': {
+    nombre: 'Alga punto verde (GSA)',
+    emoji: '🟢',
+    descripcion: 'Puntos verdes duros, redondos y difíciles de raspar, sobre cristales y hojas de crecimiento lento.',
+    causa: 'Exceso de luz (intensidad o fotoperíodo) y desequilibrio de fosfato. Frecuente con fosfato bajo (<0.5 ppm).',
+    pasos: [
+      'Raspa manualmente con rasqueta o tarjeta de crédito los cristales.',
+      'Ajusta fosfato a 0.5–1.5 ppm usando KH₂PO₄.',
+      'Reduce el fotoperíodo a 7–8 horas.',
+      'Revisa que el CO₂ esté estable si es acuario high-tech.',
+      'Poda las hojas más afectadas si el alga cubre más del 50%.',
+      'Introduce caracoles Neritina y Otocinclus: consumen GSA joven.'
+    ]
+  },
+  'filamentosa': {
+    nombre: 'Alga filamentosa verde (pelo)',
+    emoji: '🟩',
+    descripcion: 'Hilos verdes largos y finos que crecen entre plantas, decoración y equipos.',
+    causa: 'Exceso de nutrientes (NO₃ y PO₄), amoníaco presente por sobrealimentación, o exceso de luz con CO₂ inestable.',
+    pasos: [
+      'Retira manualmente con pinzas o un palillo girándolo como si fuera espagueti.',
+      'Reduce la comida: no debe quedar comida en el fondo después de 2 minutos.',
+      'Haz cambios de agua del 40% dos veces por semana.',
+      'Reduce el fotoperíodo a 6 horas durante 2 semanas.',
+      'Añade plantas de crecimiento rápido: Hygrophila, Rotala, Ceratophyllum.',
+      'Introduce amano shrimp y SAE (Siamese Algae Eater).'
+    ]
+  },
+  'barba-negra': {
+    nombre: 'Alga barba negra (BBA)',
+    emoji: '⚫',
+    descripcion: 'Mechones oscuros, negros o gris-azulados, en bordes de hojas, troncos y salida del filtro. No se desprende fácilmente.',
+    causa: 'CO₂ fluctuante (apagado nocturno inestable), exceso de fosfato, acumulación de materia orgánica en filtro.',
+    pasos: [
+      'Estabiliza el CO₂: si es presurizado, revisa el solenoide y la hora de encendido (1 hora antes de la luz).',
+      'Aplica peróxido de hidrógeno (H₂O₂ al 3%) directamente sobre el alga con jeringa, 1–2 ml por cada 10 L. Apaga el filtro durante 10 minutos.',
+      'Alternativa: apply carbono líquido (Excel) con jeringa en la zona afectada.',
+      'Poda las hojas con más del 50% cubierto. No las arranques: se esparce.',
+      'Limpia el filtro completo y aumenta la circulación.',
+      'Reduce fosfato a 0.5–1.0 ppm.'
+    ]
+  },
+  'cianobacteria': {
+    nombre: 'Cianobacteria (BGA)',
+    emoji: '🟦',
+    descripcion: 'Película azul-verdosa con olor a tierra que cubre sustrato y cristales. Se desprende en láminas.',
+    causa: 'Flujo bajo, NO₃ a cero, exceso de fosfato y acumulación de materia orgánica.',
+    pasos: [
+      'Sifona las láminas visibles con manguera.',
+      'Realiza un blackout completo: 4–5 días sin luz, acuario tapado con toalla.',
+      'Durante el blackout, no alimentes a los peces.',
+      'Aumenta la circulación con una bomba adicional.',
+      'Ajusta NO₃ a 5–10 ppm: la cianobacteria fija nitrógeno cuando falta.',
+      'Cambio de agua del 50% al terminar el blackout.',
+      'Introduce caracoles y gambas para mantener el sustrato limpio.'
+    ]
+  },
+  'staghorn': {
+    nombre: 'Alga staghorn (asta de ciervo)',
+    emoji: '🦌',
+    descripcion: 'Filamentos ramificados gris-verdosos con forma de astas de ciervo, en bordes de hojas y decoración.',
+    causa: 'CO₂ bajo o inestable, desequilibrio de nutrientes y circulación pobre.',
+    pasos: [
+      'Retira manualmente los filamentos con pinzas.',
+      'Aumenta y estabiliza el CO₂.',
+      'Revisa la circulación: debe haber movimiento en toda la columna de agua.',
+      'Aplica H₂O₂ al 3% localizado si es persistente.',
+      'Ajusta NO₃ a 10 ppm y PO₄ a 1 ppm.',
+      'Poda las hojas más afectadas.'
+    ]
+  },
+  'green-dust': {
+    nombre: 'Alga polvo verde (GDA)',
+    emoji: '🟢',
+    descripcion: 'Polvo verde fino que cubre cristales y hojas. Se vuelve a formar rápidamente tras limpiar.',
+    causa: 'Exceso de luz (fotoperíodo o intensidad) y desequilibrio de nutrientes. Típico en acuarios sin CO₂ con luz media-alta.',
+    pasos: [
+      'Reduce el fotoperíodo a 6 horas.',
+      'Raspa los cristales y haz cambios de agua del 40% dos veces por semana.',
+      'Revisa que el CO₂ esté estable si lo usas.',
+      'Añade plantas flotantes para sombrear: Salvinia, Pistia.',
+      'Introduce caracoles Neritina.'
+    ]
+  },
+  'green-water': {
+    nombre: 'Agua verde',
+    emoji: '🟩',
+    descripcion: 'El agua se vuelve verde turbia por proliferación de algas unicelulares en suspensión.',
+    causa: 'Exceso de luz (especialmente luz solar directa), amoníaco presente, y falta de competencia por plantas.',
+    pasos: [
+      'Instala un filtro UV: es el método más rápido (24–48 h).',
+      'Realiza un blackout de 3–4 días.',
+      'Añade plantas flotantes que compitan por nutrientes.',
+      'Cambia el 50% del agua cada 2 días durante una semana.',
+      'Revisa que no haya luz solar directa sobre el acuario.',
+      'Añade daphnia (pulgas de agua) si el problema persiste.'
+    ]
   }
-  return data.result;
-}
+};
+
+// Mapeo de nombres de Nyckel a nuestros tipos
+var MAPA_NYCKEL = {
+  'Cladophora': 'filamentosa',
+  'Chlorella': 'green-water',
+  'Anabaena': 'cianobacteria',
+  'Aphanizomenon': 'cianobacteria',
+  'Aphanothece': 'cianobacteria',
+  'Aulacoseira': 'diatomeas',
+  'Ceratium': 'green-water',
+  'Chondrus': 'filamentosa',
+  'Coccolithus': 'diatomeas',
+  'Cryptomonas': 'green-water'
+};
 
 // ============================================================
-// BÚSQUEDA DE PRODUCTOS EN VIVO
-// ============================================================
-async function buscarProductos() {
-  var query = document.getElementById('busquedaProducto').value.trim();
-  if (!query) return;
-
-  var cont = document.getElementById('resultadosProductos');
-  cont.innerHTML = '<p><span class="spinner"></span>Consultando Atlarium…</p>';
-
-  try {
-    var data = await callMCP('search_products', {
-      query: query,
-      language: 'es',
-      limit: 8
-    });
-
-    var items = Array.isArray(data) ? data : (data.results || data.products || []);
-    if (items.length === 0) {
-      cont.innerHTML = '<p class="vacio">Sin resultados para "' + query + '".</p>';
-      return;
-    }
-
-    var html = '';
-    for (var i = 0; i < items.length; i++) {
-      var p = items[i];
-      html += '<div class="item">';
-      html += '<div class="nombre">' + (p.name || p.title || 'Producto') + '</div>';
-      html += '<div class="detalle">' + (p.brand || p.category || '') + (p.url ? ' · <a href="' + p.url + '" target="_blank">Ver ficha</a>' : '') + '</div>';
-      html += '</div>';
-    }
-    cont.innerHTML = html;
-  } catch (err) {
-    cont.innerHTML = '<p class="nota-aviso" style="font-size:12px;">No se pudo consultar la API: ' + err.message + '. La app sigue funcionando con datos locales.</p>';
-  }
-}
-
-// ============================================================
-// BÚSQUEDA DE PLANTAS EN VIVO
-// ============================================================
-async function buscarPlantas() {
-  var query = document.getElementById('busquedaPlanta').value.trim();
-  if (!query) return;
-
-  var cont = document.getElementById('resultadosPlantas');
-  cont.innerHTML = '<p><span class="spinner"></span>Consultando Atlarium…</p>';
-
-  try {
-    var data = await callMCP('search_plants', {
-      query: query,
-      language: 'es',
-      limit: 8
-    });
-
-    var items = Array.isArray(data) ? data : (data.results || data.plants || []);
-    if (items.length === 0) {
-      cont.innerHTML = '<p class="vacio">Sin resultados para "' + query + '".</p>';
-      return;
-    }
-
-    var html = '';
-    for (var i = 0; i < items.length; i++) {
-      var p = items[i];
-      html += '<div class="item">';
-      html += '<div class="nombre">' + (p.name || p.title || 'Planta') + '</div>';
-      html += '<div class="detalle">' + (p.difficulty ? 'Dificultad: ' + p.difficulty : '') + (p.placement ? ' · ' + p.placement : '') + '</div>';
-      html += '</div>';
-    }
-    cont.innerHTML = html;
-  } catch (err) {
-    cont.innerHTML = '<p class="nota-aviso" style="font-size:12px;">No se pudo consultar la API: ' + err.message + '.</p>';
-  }
-}
-
-// ============================================================
-// PRESETS LOCALES (fallback si la API falla)
+// PRESETS LOCALES
 // ============================================================
 var PRESETS = {
   lamparas: {
@@ -637,10 +671,10 @@ var PRESETS = {
     't5': { iluminacion:'media', fotoperiodo:8, nota:'Tubos T5/T8: reemplazar cada 12 meses.' }
   },
   filtros: {
-    'uns-delta-30': { caudal: 120, nota:'UNS Delta 30 V2: hasta 60 L. 120 GPH (454 L/h), 7W. Incluye Neo Flow Lily Pipes.' },
+    'uns-delta-30': { caudal: 120, nota:'UNS Delta 30 V2: hasta 60 L. 120 GPH (454 L/h), 7W.' },
     'uns-delta-60': { caudal: 150, nota:'UNS Delta 60 V2: hasta 100 L. 150 GPH (568 L/h), 8W.' },
     'uns-delta-90': { caudal: 200, nota:'UNS Delta 90 V2: hasta 150 L. 200 GPH (757 L/h), 16W.' },
-    'uns-delta-120': { caudal: 350, nota:'UNS Delta 120 V2: hasta 350 L. 350 GPH (1325 L/h), 24W. 3 cestas.' },
+    'uns-delta-120': { caudal: 350, nota:'UNS Delta 120 V2: hasta 350 L. 350 GPH (1325 L/h), 24W.' },
     'uns-blitz-6': { caudal: 100, nota:'UNS Blitz 6 OZ: acero inoxidable premium para nano acuarios.' },
     'uns-blitz-32': { caudal: 200, nota:'UNS Blitz 32 OZ: acero inoxidable para acuarios pequeños y medianos.' },
     'eheim': { caudal: 600, nota:'Eheim Classic/Pro 4+: fiabilidad alemana y larga vida útil.' },
@@ -669,7 +703,7 @@ function aplicarPresetLampara(){
   }
 }
 
-function aplicarPresetCO2(){ /* Los presets de CO2 se muestran en el plan */ }
+function aplicarPresetCO2(){}
 
 function aplicarPresetFiltro(){
   var sel = document.getElementById('marcaFiltro');
@@ -800,6 +834,7 @@ function generarPlan(){
     renderAgua(d);
     renderMantenimiento(d);
     renderAlgas(d);
+    renderDiagnostico(d);
     renderCatalogo(d);
 
     var tabs = document.querySelectorAll('.tab');
@@ -863,7 +898,7 @@ function renderArranque(d){
 }
 
 // ============================================================
-// RENDER: ABONADO CON DOSIS ESPECÍFICAS
+// RENDER: ABONADO
 // ============================================================
 function renderAbonado(d){
   var nivel = 'bajo';
@@ -895,7 +930,6 @@ function renderAbonado(d){
   var frec = nivel === 'bajo' ? '2× semana — lunes y jueves' : (nivel === 'alto' ? 'Diario o 4× semana' : '3× semana — lunes, miércoles, viernes');
   var frecM = nivel === 'bajo' ? '1× semana — martes' : (nivel === 'alto' ? '3× semana' : '2× semana — martes y jueves');
 
-  // Dosis específicas por marca
   var dosisSeachem = '';
   var dosisATP = '';
   var dosisUNS = '';
@@ -938,17 +972,17 @@ function renderAbonado(d){
   var mlAPT3 = (3 / 100) * d.litros;
   dosisATP += '<div class="marca-card"><h4>2HR Aquarist APT 3 Complete <span class="categoria">Todo-en-uno</span></h4>';
   dosisATP += '<div class="modelos">Dosis: <strong>' + mlAPT3.toFixed(1) + ' ml</strong> por ' + d.litros.toFixed(0) + ' L, diario.</div>';
-  dosisATP += '<div class="nota-marca">Cada 5 ml/100 L aporta: 3.8 ppm K, 1.8 ppm NO₃, 0.7 ppm PO₄. Para acuarios con más plantas que peces.</div></div>';
+  dosisATP += '<div class="nota-marca">Cada 5 ml/100 L aporta: 3.8 ppm K, 1.8 ppm NO₃, 0.7 ppm PO₄.</div></div>';
 
   var mlUNSMIN = (2 / 20) * d.litros;
   dosisUNS += '<div class="marca-card"><h4>UNS Plant Food MIN <span class="categoria">Micros + Macros</span></h4>';
   dosisUNS += '<div class="modelos">Dosis: <strong>' + mlUNSMIN.toFixed(1) + ' ml</strong> por ' + d.litros.toFixed(0) + ' L, cada 2 días.</div>';
-  dosisUNS += '<div class="nota-marca">1 pump ≈ 2 ml. Concentración media para acuarios nuevos o low-tech. Cambio de agua semanal del 30-50%.</div></div>';
+  dosisUNS += '<div class="nota-marca">1 pump ≈ 2 ml. Concentración media para acuarios nuevos o low-tech.</div></div>';
 
   var mlUNSMAX = (2 / 20) * d.litros;
   dosisUNS += '<div class="marca-card"><h4>UNS Plant Food MAX <span class="categoria">Micros + Macros</span></h4>';
   dosisUNS += '<div class="modelos">Dosis: <strong>' + mlUNSMAX.toFixed(1) + ' ml</strong> por ' + d.litros.toFixed(0) + ' L, cada 2 días.</div>';
-  dosisUNS += '<div class="nota-marca">Rico en nutrientes para acuarios establecidos con alta luz. Apto para gambas. Cambio de agua semanal del 30-50%.</div></div>';
+  dosisUNS += '<div class="nota-marca">Rico en nutrientes para acuarios establecidos con alta luz. Apto para gambas.</div></div>';
 
   var html = '';
   html += '<div class="bloque">';
@@ -1099,7 +1133,7 @@ function renderMantenimiento(d){
 }
 
 // ============================================================
-// RENDER: ALGAS
+// RENDER: ALGAS (guía estática)
 // ============================================================
 function renderAlgas(d){
   var riesgo = 0;
@@ -1170,28 +1204,227 @@ function renderAlgas(d){
 }
 
 // ============================================================
-// RENDER: CATÁLOGO CON API
+// RENDER: DIAGNÓSTICO POR IA (Nyckel)
+// ============================================================
+function renderDiagnostico(d){
+  var html = '';
+  html += '<div class="bloque">';
+  html += '<div class="bloque-titulo">Diagnóstico de algas por foto</div>';
+  html += '<div class="bloque-desc">Sube una foto clara del alga. La IA la comparará con su base de datos y te dará un diagnóstico con pasos específicos.</div>';
+
+  html += '<div class="upload-zone" id="uploadZone">';
+  html += '<input type="file" id="fotoAlga" accept="image/*" onchange="previewFoto(event)">';
+  html += '<div class="upload-placeholder" id="uploadPlaceholder">';
+  html += '<p>📷 Toca para subir una foto del alga</p>';
+  html += '<p>Formatos: JPG, PNG, WEBP</p>';
+  html += '</div>';
+  html += '<img id="previewImg" class="oculto" alt="Vista previa">';
+  html += '</div>';
+
+  html += '<button class="btn btn-full oculto" id="btnAnalizar" onclick="analizarImagenAlga()" style="margin-top:.5rem;">Identificar alga</button>';
+
+  html += '<div id="resultadoDiagnostico" style="margin-top:1.25rem;"></div>';
+  html += '</div>';
+
+  // Guía manual de referencia
+  html += '<div class="bloque">';
+  html += '<div class="bloque-titulo">Guía de referencia manual</div>';
+  html += '<div class="bloque-desc">Si prefieres identificar manualmente, aquí tienes los tipos más comunes con su tratamiento.</div>';
+  var claves = Object.keys(TIPOS_ALGAS);
+  for (var i = 0; i < claves.length; i++){
+    var alga = TIPOS_ALGAS[claves[i]];
+    html += '<details class="acordeon"><summary>' + alga.emoji + ' ' + alga.nombre + '</summary><div class="content">';
+    html += '<p style="margin-bottom:.75rem;">' + alga.descripcion + '</p>';
+    html += '<p style="margin-bottom:.75rem;"><strong>Causa:</strong> ' + alga.causa + '</p>';
+    html += '<ul>';
+    for (var j = 0; j < alga.pasos.length; j++){
+      html += '<li>' + alga.pasos[j] + '</li>';
+    }
+    html += '</ul></div></details>';
+  }
+  html += '</div>';
+
+  document.getElementById('tab-diagnostico').innerHTML = html;
+}
+
+// ============================================================
+// SUBIDA Y ANÁLISIS DE FOTO
+// ============================================================
+function previewFoto(event){
+  var file = event.target.files[0];
+  if (!file) return;
+
+  var reader = new FileReader();
+  reader.onload = function(e){
+    document.getElementById('previewImg').src = e.target.result;
+    document.getElementById('previewImg').classList.remove('oculto');
+    document.getElementById('uploadPlaceholder').classList.add('oculto');
+    document.getElementById('btnAnalizar').classList.remove('oculto');
+  };
+  reader.readAsDataURL(file);
+}
+
+async function analizarImagenAlga(){
+  var fileInput = document.getElementById('fotoAlga');
+  var file = fileInput.files[0];
+  if (!file) return;
+
+  var cont = document.getElementById('resultadoDiagnostico');
+  cont.innerHTML = '<p><span class="spinner"></span>Analizando imagen con IA…</p>';
+
+  // Si no hay credenciales de Nyckel, usar análisis local por nombre de archivo
+  if (!NYCKEL_CLIENT_ID || !NYCKEL_CLIENT_SECRET || !NYCKEL_FUNCTION_ID){
+    var nombre = file.name.toLowerCase();
+    var tipoDetectado = detectarPorNombre(nombre);
+    if (tipoDetectado){
+      mostrarResultado(tipoDetectado, 'local');
+    } else {
+      cont.innerHTML = '<div class="nota nota-info">' +
+        '<strong>Modo de referencia activado.</strong> Para usar la IA de Nyckel, configura tus credenciales en el código. ' +
+        'Mientras tanto, usa la <strong>Guía de referencia manual</strong> de abajo para identificar el alga.</div>';
+    }
+    return;
+  }
+
+  try {
+    // 1. Obtener token de acceso
+    var tokenRes = await fetch('https://www.nyckel.com/connect/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: 'grant_type=client_credentials&client_id=' + encodeURIComponent(NYCKEL_CLIENT_ID) + '&client_secret=' + encodeURIComponent(NYCKEL_CLIENT_SECRET)
+    });
+
+    if (!tokenRes.ok) throw new Error('Error de autenticación: ' + tokenRes.status);
+    var tokenData = await tokenRes.json();
+    var token = tokenData.access_token;
+
+    // 2. Convertir imagen a base64
+    var base64 = await fileToBase64(file);
+
+    // 3. Llamar a la función de Nyckel
+    var invokeRes = await fetch('https://www.nyckel.com/v1/functions/' + NYCKEL_FUNCTION_ID + '/invoke', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ data: base64 })
+    });
+
+    if (!invokeRes.ok) throw new Error('Error en la clasificación: ' + invokeRes.status);
+    var result = await invokeRes.json();
+
+    // 4. Mapear resultado a nuestro tipo de alga
+    var labelNyckel = result.labelName || '';
+    var confianza = result.confidence || 0;
+    var tipoLocal = MAPA_NYCKEL[labelNyckel] || detectarPorNyckel(labelNyckel);
+
+    if (tipoLocal && TIPOS_ALGAS[tipoLocal]){
+      mostrarResultado(tipoLocal, 'nyckel', labelNyckel, confianza);
+    } else {
+      cont.innerHTML = '<div class="nota nota-info">La IA detectó <strong>' + labelNyckel + '</strong> con ' +
+        (confianza * 100).toFixed(0) + '% de confianza, pero no tenemos una ficha específica para ese género. ' +
+        'Consulta la guía manual de abajo.</div>';
+    }
+
+  } catch (err) {
+    console.error(err);
+    cont.innerHTML = '<div class="nota nota-aviso"><strong>Error al consultar Nyckel:</strong> ' + err.message +
+      '<br><br>Verifica tus credenciales y que el clasificador esté clonado. Mientras tanto, usa la guía manual.</div>';
+  }
+}
+
+function fileToBase64(file){
+  return new Promise(function(resolve, reject){
+    var reader = new FileReader();
+    reader.onload = function(){ resolve(reader.result); };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+function detectarPorNombre(nombre){
+  if (nombre.indexOf('barba') !== -1 || nombre.indexOf('bba') !== -1 || nombre.indexOf('beard') !== -1) return 'barba-negra';
+  if (nombre.indexOf('filament') !== -1 || nombre.indexOf('pelo') !== -1 || nombre.indexOf('hair') !== -1) return 'filamentosa';
+  if (nombre.indexOf('ciano') !== -1 || nombre.indexOf('cyano') !== -1 || nombre.indexOf('azul') !== -1 || nombre.indexOf('blue') !== -1) return 'cianobacteria';
+  if (nombre.indexOf('diatom') !== -1 || nombre.indexOf('marron') !== -1 || nombre.indexOf('brown') !== -1) return 'diatomeas';
+  if (nombre.indexOf('staghorn') !== -1 || nombre.indexOf('asta') !== -1 || nombre.indexOf('ciervo') !== -1) return 'staghorn';
+  if (nombre.indexOf('punto') !== -1 || nombre.indexOf('spot') !== -1) return 'punto-verde';
+  if (nombre.indexOf('polvo') !== -1 || nombre.indexOf('dust') !== -1) return 'green-dust';
+  if (nombre.indexOf('verde') !== -1 && nombre.indexOf('agua') !== -1 || nombre.indexOf('green water') !== -1) return 'green-water';
+  return null;
+}
+
+function detectarPorNyckel(label){
+  var mapa = {
+    'Cladophora': 'filamentosa',
+    'Chlorella': 'green-water',
+    'Anabaena': 'cianobacteria',
+    'Aphanizomenon': 'cianobacteria',
+    'Aphanothece': 'cianobacteria',
+    'Aulacoseira': 'diatomeas',
+    'Ceratium': 'green-water',
+    'Chondrus': 'filamentosa',
+    'Coccolithus': 'diatomeas',
+    'Cryptomonas': 'green-water'
+  };
+  return mapa[label] || null;
+}
+
+function mostrarResultado(tipo, fuente, labelNyckel, confianza){
+  var alga = TIPOS_ALGAS[tipo];
+  if (!alga) return;
+
+  var html = '';
+  html += '<div class="resultado-alga">';
+  html += '<h4>' + alga.emoji + ' ' + alga.nombre + '</h4>';
+
+  if (fuente === 'nyckel'){
+    html += '<div class="confianza">Detectado por IA (Nyckel: ' + labelNyckel + ') · Confianza: ' +
+      (confianza * 100).toFixed(0) + '%</div>';
+  } else {
+    html += '<div class="confianza">Identificación por referencia · Configura Nyckel para IA en vivo</div>';
+  }
+
+  html += '<div class="descripcion">' + alga.descripcion + '</div>';
+  html += '<div style="font-size:12px; color:var(--gris-500); margin-bottom:.75rem;"><strong>Causa:</strong> ' + alga.causa + '</div>';
+
+  html += '<div style="font-size:11px; text-transform:uppercase; letter-spacing:.12em; color:var(--gris-500); margin-bottom:.5rem;">Pasos para contrarrestarla</div>';
+  html += '<ul class="pasos">';
+  for (var i = 0; i < alga.pasos.length; i++){
+    html += '<li>' + alga.pasos[i] + '</li>';
+  }
+  html += '</ul>';
+  html += '</div>';
+
+  document.getElementById('resultadoDiagnostico').innerHTML = html;
+}
+
+// ============================================================
+// RENDER: CATÁLOGO
 // ============================================================
 var filtroCatalogoActivo = 'todas';
 
 function renderCatalogo(d){
   var html = '';
   html += '<div class="bloque">';
-  html += '<div class="bloque-titulo">Catálogo de marcas · búsqueda en vivo</div>';
-  html += '<div class="bloque-desc">Consulta productos reales desde la base de datos de Atlarium. Filtra por categoría o busca por nombre.</div>';
-  html += '<div class="search-box">';
-  html += '<input type="text" id="busquedaCatalogo" placeholder="Ej: filtro, LED, sustrato, CO2…" onkeydown="if(event.key===\'Enter\') buscarCatalogo()">';
-  html += '<button onclick="buscarCatalogo()">Buscar</button>';
-  html += '</div>';
+  html += '<div class="bloque-titulo">Catálogo de marcas del hobby</div>';
+  html += '<div class="bloque-desc">Marcas referentes en cada categoría. Filtra por tipo de producto.</div>';
   html += '<div class="filtros" id="filtrosCatalogo">';
   html += '<button class="filtro active" data-cat="todas">Todas</button>';
-  html += '<button class="filtro" data-cat="filter">Filtros</button>';
-  html += '<button class="filtro" data-cat="light">Iluminación</button>';
+  html += '<button class="filtro" data-cat="iluminacion">Iluminación</button>';
+  html += '<button class="filtro" data-cat="filtracion">Filtración</button>';
   html += '<button class="filtro" data-cat="co2">CO₂</button>';
-  html += '<button class="filtro" data-cat="substrate">Sustratos</button>';
-  html += '<button class="filtro" data-cat="fertilizer">Fertilizantes</button>';
+  html += '<button class="filtro" data-cat="sustratos">Sustratos</button>';
+  html += '<button class="filtro" data-cat="fertilizantes">Fertilizantes</button>';
+  html += '<button class="filtro" data-cat="tests">Tests</button>';
+  html += '<button class="filtro" data-cat="decloradores">Decloradores</button>';
+  html += '<button class="filtro" data-cat="bacterias">Bacterias</button>';
+  html += '<button class="filtro" data-cat="remineralizantes">Remineralizantes</button>';
+  html += '<button class="filtro" data-cat="alimentos">Alimentos</button>';
+  html += '<button class="filtro" data-cat="equipamiento">Equipamiento</button>';
   html += '</div>';
-  html += '<div id="listaCatalogo" class="resultados-api"></div>';
+  html += '<div id="listaCatalogo"></div>';
   html += '</div>';
 
   document.getElementById('tab-catalogo').innerHTML = html;
@@ -1203,47 +1436,41 @@ function renderCatalogo(d){
       var todos = document.querySelectorAll('#filtrosCatalogo .filtro');
       for (var j = 0; j < todos.length; j++) todos[j].classList.remove('active');
       this.classList.add('active');
-      buscarCatalogo();
+      pintarListaCatalogo(d);
     });
   }
 
-  // Carga inicial del catálogo
-  buscarCatalogo();
+  pintarListaCatalogo(d);
 }
 
-async function buscarCatalogo(){
+function pintarListaCatalogo(d){
   var cont = document.getElementById('listaCatalogo');
-  var query = document.getElementById('busquedaCatalogo') ? document.getElementById('busquedaCatalogo').value.trim() : '';
-  var cat = filtroCatalogoActivo;
+  if (!cont) return;
+  var html = '';
+  var categorias = filtroCatalogoActivo === 'todas' ? Object.keys(CATALOGO) : [filtroCatalogoActivo];
 
-  cont.innerHTML = '<p><span class="spinner"></span>Consultando Atlarium…</p>';
+  for (var c = 0; c < categorias.length; c++){
+    var cat = categorias[c];
+    var marcas = CATALOGO[cat];
+    if (!marcas) continue;
 
-  try {
-    var args = { language: 'es', limit: 12 };
-    if (query) args.query = query;
-    if (cat !== 'todas') args.category = cat;
-
-    var data = await callMCP('search_products', args);
-    var items = Array.isArray(data) ? data : (data.results || data.products || []);
-
-    if (items.length === 0) {
-      cont.innerHTML = '<p class="vacio">Sin resultados. Prueba con otro término.</p>';
-      return;
-    }
-
-    var html = '';
-    for (var i = 0; i < items.length; i++) {
-      var p = items[i];
-      html += '<div class="item">';
-      html += '<div class="nombre">' + (p.name || p.title || 'Producto') + '</div>';
-      html += '<div class="detalle">' + (p.brand ? '<strong>' + p.brand + '</strong> · ' : '') + (p.category || '') + (p.url ? ' · <a href="' + p.url + '" target="_blank">Ver ficha</a>' : '') + '</div>';
+    html += '<details class="acordeon" ' + (filtroCatalogoActivo !== 'todas' ? 'open' : '') + '>';
+    html += '<summary>' + capitalizar(cat) + ' · ' + marcas.length + ' marcas</summary>';
+    html += '<div class="content">';
+    for (var m = 0; m < marcas.length; m++){
+      var marca = marcas[m];
+      html += '<div class="marca-card">';
+      html += '<h4>' + marca.marca + '<span class="categoria">' + capitalizar(cat) + '</span></h4>';
+      html += '<div class="modelos">' + marca.modelos + '</div>';
+      html += '<div class="nota-marca">' + marca.nota + '</div>';
       html += '</div>';
     }
-    cont.innerHTML = html;
-  } catch (err) {
-    cont.innerHTML = '<p class="nota-aviso" style="font-size:12px;">No se pudo consultar la API: ' + err.message + '. La app sigue funcionando con datos locales.</p>';
+    html += '</div></details>';
   }
+  cont.innerHTML = html;
 }
+
+function capitalizar(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
 
 // ============================================================
 // TABS
@@ -1264,7 +1491,7 @@ function setupTabs(){
 }
 
 // ============================================================
-// AVANCES (parámetros del acuario)
+// AVANCES
 // ============================================================
 function guardarAvance(){
   var fecha = document.getElementById('avFecha').value || new Date().toISOString().slice(0,10);
